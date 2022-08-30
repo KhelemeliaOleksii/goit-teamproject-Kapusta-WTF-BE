@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose')
 
 const categorySchema = new Schema(
   {
@@ -6,20 +6,20 @@ const categorySchema = new Schema(
       type: String,
       required: true,
       minLength: 2,
-      maxLength: 10,
+      maxLength: 10
     },
     imageUrl: {
       type: String,
-      required: true,
+      required: true
       // default: "../../public/avatars/defaultAvatar.jpg",
-    },
+    }
   },
   {
     timestamps: true,
-    versionKey: false,
+    versionKey: false
   }
-);
+)
 
-const CategoryModel = model("category", categorySchema);
+const CategoryModel = model('category', categorySchema)
 
-module.exports = CategoryModel;
+module.exports = CategoryModel

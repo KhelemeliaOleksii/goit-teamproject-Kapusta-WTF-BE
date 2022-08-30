@@ -1,7 +1,7 @@
-const middlewareTest = require('./middlewareTest');
+const middlewareTest = require('./middlewareTest')
 
 const exampleMiddleWare = {
-    middlewareTest,
+  middlewareTest
 }
 
-module.exports = exampleMiddleWare;
+module.exports = exampleMiddleWare
