@@ -1,7 +1,7 @@
-const test = require('./test');
+const test = require('./test')
 
 const serviseExample = {
-    test,
+  test
 }
 
-module.exports = serviseExample;
+module.exports = serviseExample

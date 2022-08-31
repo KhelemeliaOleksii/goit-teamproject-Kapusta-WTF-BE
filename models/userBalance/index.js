@@ -1,9 +1,9 @@
-const userBalanceValidation = require("./userBalanceValidation");
-const userBalanceModel = require("./userBalanceModel");
+const userBalanceValidation = require('./userBalanceValidation')
+const userBalanceModel = require('./userBalanceModel')
 
 const userBalance = {
   userBalanceValidation,
-  userBalanceModel,
-};
+  userBalanceModel
+}
 
-module.exports = userBalance;
+module.exports = userBalance
