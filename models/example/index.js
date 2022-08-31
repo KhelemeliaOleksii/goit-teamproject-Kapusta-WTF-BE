@@ -1,9 +1,9 @@
-const ExampleModel = require("./ExampleModel");
-const ExampleValidation = require("./ExampleValidation");
+const ExampleModel = require('./ExampleModel')
+const ExampleValidation = require('./ExampleValidation')
 
 const Example = {
   ExampleModel,
-  ExampleValidation,
-};
+  ExampleValidation
+}
 
-module.exports = Example;
+module.exports = Example

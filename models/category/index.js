@@ -1,9 +1,9 @@
-const categoryValidation = require("./categoryValidation");
-const categoryModel = require("./categoryModel");
+const categoryValidation = require('./categoryValidation')
+const CategoryModel = require('./categoryModel')
 
 const category = {
   categoryValidation,
-  categoryModel,
-};
+  CategoryModel
+}
 
-module.exports = category;
+module.exports = category
