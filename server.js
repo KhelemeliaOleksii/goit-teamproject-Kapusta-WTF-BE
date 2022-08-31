@@ -6,8 +6,8 @@ const connectDB = require('./config/connectDB')
 
 const start = async () => {
   try {
-    const { DB_HOST, PORT } = process.env
-    await connectDB(DB_HOST)
+    const { PORT = 5000 } = process.env
+    await connectDB()
 
     app.listen(PORT, () => {
       console.log(`Server running. Use our API on port: ${PORT}`)
@@ -16,7 +16,7 @@ const start = async () => {
     console.log(colors.red(error.message.bold))
     process.exit(1)
   }
-};
+}
 
 (async () => {
   await start()
