@@ -5,6 +5,7 @@ const cors = require('cors')
 
 // імпорт вашого роутера
 const exampleRouter = require('./routes/api/example')
+const reportRouter = require('./routes/api/reportRouter')
 
 const app = express()
 
@@ -25,6 +26,7 @@ app.use(
 
 // місце для підключення вашого роутера
 app.use('/api/v1', exampleRouter)
+app.use('/api/v1', reportRouter)
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })

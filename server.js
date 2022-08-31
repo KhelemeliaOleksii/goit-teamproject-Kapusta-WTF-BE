@@ -1,6 +1,6 @@
 const colors = require('colors')
 
-const configDotEnv = require('./config/setEnvVars')
+require('./config/setEnvVars')
 const app = require('./app')
 const connectDB = require('./config/connectDB')
 
