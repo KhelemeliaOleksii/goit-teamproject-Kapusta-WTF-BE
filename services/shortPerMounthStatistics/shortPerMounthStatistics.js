@@ -2,31 +2,26 @@
 
 const TransactionModel = require('../../models/transaction/transactionModel')
 
-const shortStatistics = async (type) => {
-  const date = new Date()
-  const year = date.getFullYear()
+const shortPerMounthStatistics = async (monthValue, yearValue) => {
   const result = await TransactionModel.aggregate([
     {
       $match: {
         userId: 2,
-        'date.year': year,
-        transactionType: type
+        'date.month': monthValue,
+        'date.year': yearValue
       }
-    }, {
+    },
+    {
       $group: {
-        _id: '$date.month',
+        _id: '$transactionType',
         totalAmount: {
           $sum: '$amount'
         }
       }
-    },
-    {
-      $sort: {
-        _id: 1
-      }
     }
   ])
+
   return result
 }
 
-module.exports = shortStatistics
+module.exports = shortPerMounthStatistics
