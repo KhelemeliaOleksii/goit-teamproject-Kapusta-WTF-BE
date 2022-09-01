@@ -1,7 +1,9 @@
 const setTransaction = require('./setTransaction')
+const deleteTransaction = require('./deleteTransaction')
 
 const transactionsController = {
-  setTransaction
+  setTransaction,
+  deleteTransaction
 }
 
 module.exports = transactionsController
