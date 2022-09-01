@@ -71,22 +71,28 @@ const googleRedirect = async (req, res) => {
     }
     const token = jwt.sign(payload, SECRET_KEY)
     await userModel.findByIdAndUpdate(_id, { token })
-    const userToken = await userModel.findOne({ token })
+    // const userToken = await userModel.findOne({ token })
+    await userModel.findOne({ token })
     return res
-      .redirect
-      // `${FRONTEND_URL}/api/auth/google-redirect?token=${userToken.token}`
-      ()
+      .redirect()
+
+    // .redirect
+    // // `${FRONTEND_URL}/api/auth/google-redirect?token=${userToken.token}`
+    // ()
   }
 
   const { _id } = user
   const payload = { _id }
   const token = jwt.sign(payload, SECRET_KEY)
   await userModel.findByIdAndUpdate(_id, { token })
-  const userToken = await userModel.findOne({ token })
+  // const userToken = await userModel.findOne({ token })
+  await userModel.findOne({ token })
   res
-    .redirect
-    // `FRONTEND_URL/api/auth/google-redirect?token=${userToken.token}`
-    ()
+    .redirect()
+
+  // .redirect
+  // // `FRONTEND_URL/api/auth/google-redirect?token=${userToken.token}`
+  // ()
 }
 
 module.exports = { googleAuth, googleRedirect }
