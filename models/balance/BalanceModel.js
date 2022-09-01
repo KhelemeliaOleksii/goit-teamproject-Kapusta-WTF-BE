@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose')
 
-const userBalanceSchema = new Schema(
+const balanceSchema = new Schema(
   {
     userId: {
       type: String,
@@ -18,6 +18,6 @@ const userBalanceSchema = new Schema(
   }
 )
 
-const userBalanceModel = model('userBalance', userBalanceSchema)
+const BalanceModel = model('balance', balanceSchema)
 
-module.exports = userBalanceModel
+module.exports = BalanceModel

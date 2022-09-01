@@ -1,9 +1,9 @@
 const transactionValidation = require('./transactionValidation')
-const transactionModel = require('./transactionModel')
+const TransactionModel = require('./transactionModel')
 
 const transaction = {
   transactionValidation,
-  transactionModel
+  TransactionModel
 }
 
 module.exports = transaction

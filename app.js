@@ -1,10 +1,11 @@
-console.clear()
 const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
 
 // імпорт вашого роутера
 const exampleRouter = require('./routes/api/example')
+const transactionsRouter = require('./routes/api/transactions')
+const balanceRouter = require('./routes/api/balance')
 const reportRouter = require('./routes/api/reportRouter')
 
 const app = express()
@@ -26,6 +27,8 @@ app.use(
 
 // місце для підключення вашого роутера
 app.use('/api/v1', exampleRouter)
+app.use('/api/v1', transactionsRouter)
+app.use('/api/v1', balanceRouter)
 app.use('/api/v1', reportRouter)
 
 app.use((req, res) => {
