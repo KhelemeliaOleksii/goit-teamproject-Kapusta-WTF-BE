@@ -26,7 +26,7 @@ const transactionSchema = new Schema(
       type: String,
       required: true,
       enum: {
-        values: ['income', 'expenses'], // expense => expenses згідно макету
+        values: ['income', 'expenses'],
         message: '{VALUE} is not supported'
       }
     },
