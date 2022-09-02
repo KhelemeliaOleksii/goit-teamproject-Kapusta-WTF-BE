@@ -1,9 +1,11 @@
 const createBalance = require('./createBalance')
 const updateBalance = require('../balance/updateBalance')
+const getBalance = require('../balance/getBalance')
 
 const balanceService = {
   createBalance,
-  updateBalance
+  updateBalance,
+  getBalance
 }
 
 module.exports = balanceService
