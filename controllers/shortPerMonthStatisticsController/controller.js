@@ -1,10 +1,10 @@
 const asyncHandler = require('express-async-handler')
-const categoryPerMounthStatistics = require('../../services/categoryPerMounthStatistics')
+const shortPerMonthStatisticsServises = require('../../services/shortPerMonthStatistics')
 
 const controller = asyncHandler(async (req, res) => {
   const { month, year } = req.params
 
-  const result = await categoryPerMounthStatistics(month, year)
+  const result = await shortPerMonthStatisticsServises(month, year)
 
   if (!result) {
     res.status(404)

@@ -9,9 +9,9 @@ const transactionSchema = Joi.object({
   description: Joi.object({
     descriptionName: Joi.string().required()
   }),
-  transactionType: Joi.string().required().valid('income', 'expense'),
+  transactionType: Joi.string().required().valid('income', 'expenses'),
   categoryId: Joi.string().required(),
-  amount: Joi.string().required()
+  amount: Joi.number().required()
   // userId: Joi.string().required()
 })
 

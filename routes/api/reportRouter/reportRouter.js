@@ -1,12 +1,12 @@
 const express = require('express')
 const shortStatisticsController = require('../../../controllers/shortStatisticsController')
-const shortPerMounthStatisticsController = require('../../../controllers/shortPerMounthStatisticsController')
-const categoryPerMounthStatisticsController = require('../../../controllers/categoryPerMounthStatisticsController')
+const shortPerMonthStatisticsController = require('../../../controllers/shortPerMonthStatisticsController')
+const categoryPerMonthStatisticsController = require('../../../controllers/categoryPerMonthStatisticsController')
 
 const router = express.Router()
 
-router.get('/report/short/:transactionType', shortStatisticsController)
-router.get('/report/short-per-mounth/:month/:year', shortPerMounthStatisticsController)
-router.get('/report/category-per-mounth/:month/:year', categoryPerMounthStatisticsController)
+router.get('/report/short', shortStatisticsController) // +
+router.get('/report/short-per-month/:month/:year', shortPerMonthStatisticsController)
+router.get('/report/category-per-month/:month/:year', categoryPerMonthStatisticsController)
 
 module.exports = router
