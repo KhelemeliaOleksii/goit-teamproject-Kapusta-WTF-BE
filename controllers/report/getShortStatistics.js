@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler')
-const shortStatistics = require('../../services/shortStatistics')
+const reportServises = require('../../services/report')
 
 const controller = asyncHandler(async (req, res) => {
   const { transactionType } = req.query
@@ -8,7 +8,7 @@ const controller = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error(`Transaction type ${transactionType} is not supported`)
   }
-  const result = await shortStatistics(transactionType)
+  const result = await reportServises.shortStatistics(transactionType)
   if (!result) {
     res.status(404)
     throw new Error('error message')
