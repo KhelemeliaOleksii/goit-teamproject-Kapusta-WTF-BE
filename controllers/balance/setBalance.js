@@ -4,7 +4,7 @@ const {
 } = require('../../models/balance')
 const balanceService = require('../../services/balance')
 
-const income = asyncHandler(async (req, res) => {
+const setBalance = asyncHandler(async (req, res) => {
   const { _id } = req.user
   if (!_id) {
     res.status(401)
@@ -32,4 +32,4 @@ const income = asyncHandler(async (req, res) => {
   })
 })
 
-module.exports = income
+module.exports = setBalance

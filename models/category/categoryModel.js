@@ -12,6 +12,14 @@ const categorySchema = new Schema(
       type: String,
       required: true
       // default: "../../public/avatars/defaultAvatar.jpg",
+    },
+    categoryType: {
+      type: String,
+      required: true,
+      enum: {
+        values: ['income', 'expenses'],
+        message: '{VALUE} is not supported'
+      }
     }
   },
   {

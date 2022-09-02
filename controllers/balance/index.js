@@ -1,7 +1,9 @@
 const setBalance = require('./setBalance')
+const getBalance = require('./getBalance')
 
 const balanceController = {
-  setBalance
+  setBalance,
+  getBalance
 }
 
 module.exports = balanceController
