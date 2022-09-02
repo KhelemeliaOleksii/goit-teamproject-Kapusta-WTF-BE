@@ -2,13 +2,18 @@
 
 const TransactionModel = require('../../models/transaction/transactionModel')
 
-const categoryPerMonthStatistics = async (monthValue, yearValue) => {
+const categoryPerMonthStatistics = async (monthValue, yearValue, type) => {
+  // console.log(typeof monthValue, monthValue)
+  // console.log(typeof yearValue, yearValue)
+  // console.log(typeof type, type)
+
   const result = await TransactionModel.aggregate([
     {
       $match: {
-        userId: 2,
+        userId: '62e571247f3faf7ed194473e',
         'date.month': monthValue,
-        'date.year': yearValue
+        'date.year': yearValue,
+        transactionType: type
       }
     },
     {

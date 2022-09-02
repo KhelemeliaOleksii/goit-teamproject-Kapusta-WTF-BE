@@ -6,7 +6,7 @@ const categoryPerMonthStatisticsController = require('../../../controllers/categ
 const router = express.Router()
 
 router.get('/report/short', shortStatisticsController) // +
-router.get('/report/short-per-month/:month/:year', shortPerMonthStatisticsController)
-router.get('/report/category-per-month/:month/:year', categoryPerMonthStatisticsController)
+router.get('/report/short-per-month', shortPerMonthStatisticsController)
+router.get('/report/category-per-month', categoryPerMonthStatisticsController)
 
 module.exports = router
