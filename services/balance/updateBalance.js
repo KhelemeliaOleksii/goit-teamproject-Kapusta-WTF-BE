@@ -1,7 +1,7 @@
-const { UserBalanceModel } = require('../../models/balance')
+const { BalanceModel } = require('../../models/balance')
 
-const updateBalance = async (amount) => {
-  const result = await UserBalanceModel.findByIdAndUpdate(amount)
+const updateBalance = async (userId, newBalance) => {
+  const result = await BalanceModel.findOneAndUpdate(userId, { currentBalance: newBalance })
 
   return result
 }

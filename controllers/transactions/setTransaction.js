@@ -3,12 +3,15 @@ const {
   transactionValidation
 } = require('../../models/transaction')
 const transactionsService = require('../../services/transactions')
+const balanceService = require('../../services/balance')
+const balance = require('../../models/balance')
 
 const income = asyncHandler(async (req, res) => {
   const { _id } = req.user
+  const { transactionType, amount } = req.body
   if (!_id) {
     res.status(401)
-    throw new Error('Invalid user id')
+    throw new Error('Not authorized')
   }
   const { error } = transactionValidation.validateTransaction(req.body)
   if (error) {
@@ -17,17 +20,24 @@ const income = asyncHandler(async (req, res) => {
   }
   const transaction = { ...req.body, userId: _id }
   try {
+    const currentBalance = await balanceService.getBalance(_id)
+    const candidateBalance = transactionType === 'expenses' ? currentBalance - amount : currentBalance + amount
+    if (candidateBalance < balance.balanceLimit.min || candidateBalance > balance.balanceLimit.max) {
+      res.status(409)
+      throw new Error('Operation exceed limit')
+    }
     await transactionsService.createTransaction(transaction)
+    await balanceService.updateBalance(_id, candidateBalance)
   } catch (error) {
     res.status(400)
-    throw new Error('Error while creating transaction')
+    throw new Error(error.message)
   }
 
   res.status(201).json({
     message: 'Success',
     code: 201,
     data: {
-      transaction
+      transaction: req.body
     }
   })
 })

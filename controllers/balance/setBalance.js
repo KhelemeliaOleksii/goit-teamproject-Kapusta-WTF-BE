@@ -27,7 +27,7 @@ const setBalance = asyncHandler(async (req, res) => {
     message: 'Success',
     code: 201,
     data: {
-      balance
+      balance: req.body
     }
   })
 })
