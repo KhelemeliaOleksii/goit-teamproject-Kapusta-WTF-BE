@@ -1,3 +1,4 @@
+console.clear()
 const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
@@ -6,7 +7,7 @@ const cors = require('cors')
 const exampleRouter = require('./routes/api/example')
 const transactionsRouter = require('./routes/api/transactions')
 const balanceRouter = require('./routes/api/balance')
-const reportRouter = require('./routes/api/reportRouter')
+const reportRouter = require('./routes/api/report')
 const authRouter = require('./routes/api/auth')
 
 const app = express()

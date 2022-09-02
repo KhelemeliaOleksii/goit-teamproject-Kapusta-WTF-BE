@@ -3,10 +3,12 @@
 const TransactionModel = require('../../models/transaction/transactionModel')
 
 const shortPerMonthStatistics = async (monthValue, yearValue) => {
+  // console.log(typeof monthValue)
+  // console.log(typeof yearValue)
   const result = await TransactionModel.aggregate([
     {
       $match: {
-        userId: 2,
+        userId: '62e571247f3faf7ed194473e',
         'date.month': monthValue,
         'date.year': yearValue
       }
@@ -20,7 +22,7 @@ const shortPerMonthStatistics = async (monthValue, yearValue) => {
       }
     }
   ])
-
+  // console.log(result)
   return result
 }
 

@@ -2,26 +2,21 @@
 
 const TransactionModel = require('../../models/transaction/transactionModel')
 
-const categoryPerMonthStatistics = async (monthValue, yearValue) => {
+const byNamePerMonth = async (monthValue, yearValue, category) => {
   const result = await TransactionModel.aggregate([
     {
       $match: {
-        userId: 2,
+        userId: '62e571247f3faf7ed194473e',
         'date.month': monthValue,
-        'date.year': yearValue
+        'date.year': yearValue,
+        categoryId: category
       }
-    },
-    {
+    }, {
       $group: {
-        _id: '$categoryId',
+        _id: '$description.descriptionName',
         totalAmount: {
           $sum: '$amount'
         }
-      }
-    },
-    {
-      $sort: {
-        totalAmount: -1
       }
     }
   ])
@@ -29,4 +24,4 @@ const categoryPerMonthStatistics = async (monthValue, yearValue) => {
   return result
 }
 
-module.exports = categoryPerMonthStatistics
+module.exports = byNamePerMonth
