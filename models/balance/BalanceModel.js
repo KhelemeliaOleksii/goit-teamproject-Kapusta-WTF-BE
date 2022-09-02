@@ -7,9 +7,9 @@ const balanceSchema = new Schema(
       required: true
     },
     currentBalance: {
-      type: String,
+      type: Number,
       required: true,
-      default: '0'
+      default: 0
     }
   },
   {

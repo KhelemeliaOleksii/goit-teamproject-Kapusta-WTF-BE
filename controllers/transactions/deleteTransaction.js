@@ -7,7 +7,7 @@ const deleteTransaction = asyncHandler(async (req, res) => {
     res.status(401)
     throw new Error('Invalid user id')
   }
-  const { id } = req.body
+  const { id } = req.params
   try {
     await transactionsService.deleteTransaction(id)
   } catch (error) {
