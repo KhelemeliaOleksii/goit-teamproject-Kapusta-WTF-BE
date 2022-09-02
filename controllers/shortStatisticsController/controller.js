@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler')
 const shortStatistics = require('../../services/shortStatistics')
 
 const controller = asyncHandler(async (req, res) => {
-  const { transactionType } = req.params
+  const { transactionType } = req.query
   const testType = ['income', 'expenses'].find(item => item === transactionType)
   if (!testType) {
     res.status(400)

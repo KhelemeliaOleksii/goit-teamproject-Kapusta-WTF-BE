@@ -2,7 +2,7 @@
 
 const TransactionModel = require('../../models/transaction/transactionModel')
 
-const categoryPerMounthStatistics = async (monthValue, yearValue) => {
+const categoryPerMonthStatistics = async (monthValue, yearValue) => {
   const result = await TransactionModel.aggregate([
     {
       $match: {
@@ -29,4 +29,4 @@ const categoryPerMounthStatistics = async (monthValue, yearValue) => {
   return result
 }
 
-module.exports = categoryPerMounthStatistics
+module.exports = categoryPerMonthStatistics
