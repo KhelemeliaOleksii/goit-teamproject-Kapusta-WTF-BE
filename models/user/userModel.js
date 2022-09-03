@@ -1,42 +1,49 @@
-const { Schema, model } = require('mongoose')
-
-const emailRegexp = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
+const { Schema, model } = require("mongoose");
+const gravatar = require("gravatar");
 
 const userSchema = new Schema(
   {
-    name: {
+    username: {
       type: String,
-      default: 'Guest',
-      min: 2,
-      max: 10
+      // default: "Guest",
+      // required: [true, "Username is required"],
     },
     email: {
       type: String,
-      match: emailRegexp,
-      required: [true, 'Email is required'],
-      unique: true
+      required: [true, "Email is required"],
+      unique: true,
+      validate(value) {
+        const re = /\S+@\S+\.\S+/g;
+        return re.test(String(value).toLowerCase());
+      },
     },
     password: {
-      type: String
-      // minlength: 6,
-      // required: [true, "Password is required"],
+      type: String,
+      required: [true, "Password is required"],
+    },
+    avatar: {
+      type: String,
+      default: null,
+      default: function () {
+        return gravatar.url(this.email, { s: "250" }, true);
+      },
     },
     token: {
       type: String,
-      default: null
+      default: null,
     },
     verify: {
       type: Boolean,
-      default: false
+      default: false,
     },
     verificationToken: {
       type: String,
-      required: [true, 'Verify token is required']
-    }
+      required: [true, "Verify token is required"],
+    },
   },
   { versionKey: false, timestamps: true }
-)
+);
 
-const User = model('user', userSchema)
+const User = model("user", userSchema);
 
-module.exports = User
+module.exports = User;
