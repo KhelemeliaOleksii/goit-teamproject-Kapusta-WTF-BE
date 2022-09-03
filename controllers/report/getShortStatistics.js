@@ -3,12 +3,14 @@ const reportServises = require('../../services/report')
 
 const controller = asyncHandler(async (req, res) => {
   const { transactionType } = req.query
+
+  const id = '62e571247f3faf7ed194473e'
   const testType = ['income', 'expenses'].find(item => item === transactionType)
   if (!testType) {
     res.status(400)
     throw new Error(`Transaction type ${transactionType} is not supported`)
   }
-  const result = await reportServises.shortStatistics(transactionType)
+  const result = await reportServises.shortStatistics(transactionType, id)
   if (!result) {
     res.status(404)
     throw new Error('error message')

@@ -2,13 +2,13 @@
 
 const TransactionModel = require('../../models/transaction/transactionModel')
 
-const shortStatistics = async (type) => {
+const shortStatistics = async (type, id) => {
   const date = new Date()
   const year = date.getFullYear().toString()
   const result = await TransactionModel.aggregate([
     {
       $match: {
-        userId: '62e571247f3faf7ed194473e',
+        userId: id,
         'date.year': year,
         transactionType: type
       }

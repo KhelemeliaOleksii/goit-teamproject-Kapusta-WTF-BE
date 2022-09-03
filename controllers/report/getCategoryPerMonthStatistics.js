@@ -3,6 +3,9 @@ const reportServises = require('../../services/report')
 
 const controller = asyncHandler(async (req, res) => {
   const { date, transactionType } = req.query
+
+  const id = '62e571247f3faf7ed194473e'
+
   if (!date) {
     res.status(400)
     throw new Error(`Date ${date} is not supported`)
@@ -19,7 +22,7 @@ const controller = asyncHandler(async (req, res) => {
   const year = currentDate.getFullYear().toString()
   const type = transactionType.toString()
 
-  const result = await reportServises.categoryPerMonthStatistics(month, year, type)
+  const result = await reportServises.categoryPerMonthStatistics(month, year, type, id)
 
   if (!result) {
     res.status(404)
