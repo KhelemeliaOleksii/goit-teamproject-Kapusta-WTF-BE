@@ -1,21 +1,21 @@
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require("express-async-handler");
 
-const { userModel } = require('../../models/user/')
+const { userModel } = require("../../models/user/");
 
 const verifyEmail = asyncHandler(async (req, res) => {
-  const { verificationToken } = req.params
-  const user = await userModel.findOne({ verificationToken })
+  const { verificationToken } = req.body;
+  const user = await userModel.findOne({ verificationToken });
   if (!user) {
-    res.status(404)
-    throw new Error('User not found')
+    res.status(404);
+    throw new Error("User not found");
   }
   await userModel.findByIdAndUpdate(user._id, {
-    verificationToken: '',
-    verify: true
-  })
+    verificationToken: "",
+    verify: true,
+  });
   res.json({
-    message: 'Verification successful'
-  })
-})
+    message: "Verification successful",
+  });
+});
 
-module.exports = verifyEmail
+module.exports = verifyEmail;
