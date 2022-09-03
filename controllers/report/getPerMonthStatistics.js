@@ -3,6 +3,12 @@ const asyncHandler = require('express-async-handler')
 const reportServises = require('../../services/report')
 
 const controller = asyncHandler(async (req, res) => {
+  const { _id: userId } = req.user
+  if (!userId) {
+    res.status(401)
+    throw new Error('Not authorized')
+  }
+
   const { date } = req.query
   if (!date) {
     res.status(400)
@@ -11,7 +17,7 @@ const controller = asyncHandler(async (req, res) => {
   const currentDate = new Date(date)
   const month = currentDate.getMonth().toString()
   const year = currentDate.getFullYear().toString()
-  const result = await reportServises.shortPerMonthStatistics(month, year)
+  const result = await reportServises.shortPerMonthStatistics(month, year, userId)
 
   if (!result) {
     res.status(404)

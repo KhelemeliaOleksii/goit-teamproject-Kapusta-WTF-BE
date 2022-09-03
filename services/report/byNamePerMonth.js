@@ -2,13 +2,13 @@
 
 const TransactionModel = require('../../models/transaction/transactionModel')
 
-const byNamePerMonth = async (monthValue, yearValue, category) => {
+const byNamePerMonth = async (month, year, category, id) => {
   const result = await TransactionModel.aggregate([
     {
       $match: {
-        userId: '62e571247f3faf7ed194473e',
-        'date.month': monthValue,
-        'date.year': yearValue,
+        userId: id,
+        'date.month': month,
+        'date.year': year,
         categoryId: category
       }
     }, {
