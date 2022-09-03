@@ -2,10 +2,13 @@ const asyncHandler = require('express-async-handler')
 const reportServises = require('../../services/report')
 
 const controller = asyncHandler(async (req, res) => {
+  const { _id: userId } = req.user
+  if (!userId) {
+    res.status(401)
+    throw new Error('Not authorized')
+  }
+
   const { date, category } = req.query
-
-  const id = '62e571247f3faf7ed194473e'
-
   if (!date) {
     res.status(400)
     throw new Error(`Date ${date} is not supported`)
@@ -19,7 +22,7 @@ const controller = asyncHandler(async (req, res) => {
   const month = currentDate.getMonth().toString()
   const year = currentDate.getFullYear().toString()
 
-  const result = await reportServises.byNamePerMonth(month, year, category, id)
+  const result = await reportServises.byNamePerMonth(month, year, category, userId)
 
   if (!result) {
     res.status(404)
