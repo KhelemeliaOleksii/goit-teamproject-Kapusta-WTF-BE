@@ -1,9 +1,9 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.0.3",
   "info": {
-    "version": "2.0.2",
-    "title": "Swagger test",
-    "description": "Showing off swagger-ui-express",
+    "version": "0.0.1",
+    "title": "Kapusta Swagger",
+    "description": "Swagger for Kapusta app",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
@@ -14,24 +14,24 @@
   "servers": [{ "url": "http://localhost:5000" }],
   "tags": [
     {
-      "name": "Auth",
-      "description": "Authorization endpoints"
+      "name": "Transaction",
+      "description": "Transactions endpoint"
     }
   ],
   "paths": {
-    "/auth/register": {
+    "/transactions": {
       "post": {
-        "tags": ["Auth"],
-        "summary": "User registration",
+        "tags": ["Transactions"],
+        "summary": "Transaction creation",
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
-          "description": "Registration's object",
+          "description": "Transaction object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                "$ref": "#/components/schemas/TransactionRequest"
               }
             }
           }
@@ -42,7 +42,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "$ref": "#/components/schemas/TransactionResponse"
                 }
               }
             }
@@ -51,8 +51,12 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
           "409": {
-            "description": "Provided email already exists",
+            "description": "Operation exceed limit",
             "content": {}
           }
         }
@@ -61,43 +65,96 @@
   },
   "components": {
     "schemas": {
-      "RegistrationRequest": {
+      "TransactionRequest": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": ["date", "description", "transactionType", "categoryId", "amount", "userId"],
         "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
+          "date": {
+            "type": "object",
+            "description": "Transaction's date"            
           },
-          "password": {
+          "description": {
+            "type": "object",
+            "description": "Transaction's description"            
+          },
+          "transactionType": {
             "type": "string",
-            "description": "User's password",
-            "example": "qwerty123"
+            "description": "Transaction's type",
+            "example": "expenses"
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "Category's ID"            
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Transaction's amount",
+            "example": 100
+          },
+          "userId": {
+            "type": "string",
+            "description": "User's ID"            
           }
         }
       },
-      "RegistrationResponse": {
-        "type": "array",
-        "items": {
+      "TransactionResponse": {        
           "type": "object",
           "properties": {
-            "email": {
+            "message": {
               "type": "string",
-              "description": "User's email",
-              "format": "email"
+              "description": "Response's message"
             },
-            "userId": {
-              "type": "number",
-              "description": "User's id",
-              "example": "32143232436545474"
-            }
+            "code": {
+              "type": "integer",
+              "description": "Response's code"
+            },
+            "date": {
+            "type": "object",
+            "description": "Transaction's date"            
+          },
+          "description": {
+            "type": "object",
+            "description": "Transaction's description"            
+          },
+          "transactionType": {
+            "type": "string",
+            "description": "Transaction's type",
+            "example": "expenses"
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "Category's ID"            
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Transaction's amount",
+            "example": 100
+          },
+          "userId": {
+            "type": "string",
+            "description": "User's ID"            
+          }
           }
         },
-        "example": [
-          { "email": "1@gmail.com", "userId": "1" },
-          { "email": "2@gmail.com", "userId": "2" }
-        ]
+        "example": {
+    "message": "Success",
+    "code": 201,
+    "data": {
+        "transaction": {
+            "date": {
+                "day": "31",
+                "month": "08",
+                "year": "2022"
+            },
+            "description": {
+                "descriptionName": "ковбаса"
+            },
+            "transactionType": "income",
+            "categoryId": "1",
+            "amount": "0"
+        }
+    }
+}
       }
     },
     "securitySchemes": {
@@ -108,4 +165,3 @@
       }
     }
   }
-}
