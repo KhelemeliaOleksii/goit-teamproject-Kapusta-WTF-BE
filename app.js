@@ -1,5 +1,7 @@
 console.clear()
 const express = require('express')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
 const logger = require('morgan')
 const cors = require('cors')
 
@@ -26,6 +28,8 @@ app.use(
     extended: false
   })
 )
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // місце для підключення вашого роутера
 app.use('/api/v1', exampleRouter)
