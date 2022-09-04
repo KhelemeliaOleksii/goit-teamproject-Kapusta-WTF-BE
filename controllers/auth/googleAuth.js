@@ -11,7 +11,8 @@ const { GOOGLE_CLIENT_ID, SECRET_KEY, GOOGLE_CLIENT_SECRET } =
 const googleAuth = asyncHandler(async (_, res) => {
   const stringifiedParams = queryString.stringify({
     client_id: GOOGLE_CLIENT_ID,
-    redirect_uri: 'http://localhost:5000/api/v1/google-redirect',
+    // redirect_uri: 'http://localhost:5000/api/v1/google-redirect',
+    redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/google-redirect',
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/userinfo.profile'
@@ -37,7 +38,8 @@ const googleRedirect = asyncHandler(async (req, res) => {
     data: {
       client_id: GOOGLE_CLIENT_ID,
       client_secret: GOOGLE_CLIENT_SECRET,
-      redirect_uri: 'http://localhost:5000/api/v1/google-redirect',
+      // redirect_uri: 'http://localhost:5000/api/v1/google-redirect',
+      redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/google-redirect',
       grant_type: 'authorization_code',
       code
     }
@@ -77,7 +79,8 @@ const googleRedirect = asyncHandler(async (req, res) => {
     })
     const userToken = await userModel.findOne({ token })
     res.redirect(
-      `http://localhost:5000/api/v1/google-redirect?token=${userToken.token}`
+      // `http://localhost:5000/api/v1/google-redirect?token=${userToken.token}`
+      `https://kapusta-wtf.herokuapp.com/api/v1/google-redirect?token=${userToken.token}`
     )
   }
 
@@ -87,7 +90,9 @@ const googleRedirect = asyncHandler(async (req, res) => {
   await userModel.findByIdAndUpdate(_id, { token })
   const userToken = await userModel.findOne({ token })
   res.redirect(
-    `http://localhost:5000/api/v1/google-redirect?token=${userToken.token}`
+    // `http://localhost:5000/api/v1/google-redirect?token=${userToken.token}`
+    `https://kapusta-wtf.herokuapp.com/api/v1/google-redirect?token=${userToken.token}`
+
   )
 })
 
