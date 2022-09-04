@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler')
 const { userModel } = require('../../models/user/')
 
 const verifyEmail = asyncHandler(async (req, res) => {
-  const { verificationToken } = req.body
+  const { verificationToken } = req.params
   const user = await userModel.findOne({ verificationToken })
   if (!user) {
     res.status(404)

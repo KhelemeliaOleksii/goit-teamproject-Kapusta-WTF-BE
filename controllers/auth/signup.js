@@ -32,7 +32,7 @@ const signup = asyncHandler(async (req, res) => {
   const mail = {
     to: email,
     subject: 'Підтвердження реєстрації на сайті',
-    html: `<a target="_blank" href="http://localhost:5000/api/v1/verify/${verificationToken}">Натисніть для підтвердження реєстрації</a>`
+    html: `Вас вітає команда WTF<br>Для підтвердження реєстрації перейдіть за посиланням<br><a target="_blank" href="http://localhost:5000/api/v1/verify/${verificationToken}">Підтвердження реєстрації</a>`
   }
 
   await sendEmail(mail)
