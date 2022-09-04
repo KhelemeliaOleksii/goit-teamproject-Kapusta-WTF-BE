@@ -2,9 +2,9 @@ const Joi = require('joi')
 
 const transactionSchema = Joi.object({
   date: Joi.object({
-    day: Joi.string().required(),
-    month: Joi.string().required(),
-    year: Joi.string().required()
+    day: Joi.number().min(1).max(31).required(),
+    month: Joi.number().min(0).max(11).required(),
+    year: Joi.number().min(2021).required()
   }),
   description: Joi.object({
     descriptionName: Joi.string().required()

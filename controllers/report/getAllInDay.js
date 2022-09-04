@@ -13,9 +13,9 @@ const controller = asyncHandler(async (req, res) => {
     throw new Error(`Date ${date} is not supported`)
   }
   const currentDate = new Date(date)
-  const day = currentDate.getDate().toString()
-  const month = currentDate.getMonth().toString()
-  const year = currentDate.getFullYear().toString()
+  const day = currentDate.getDate()
+  const month = currentDate.getMonth()
+  const year = currentDate.getFullYear()
 
   const result = await reportServises.allInDay(day, month, year, userId)
 
