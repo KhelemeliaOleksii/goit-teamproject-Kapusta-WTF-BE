@@ -2,7 +2,7 @@ console.clear()
 const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
-
+const errorHandler = require('./middlewares/errorHandler')
 // імпорт вашого роутера
 const exampleRouter = require('./routes/api/example')
 const transactionsRouter = require('./routes/api/transactions')
@@ -40,9 +40,10 @@ app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })
 })
 
-app.use((err, req, res, next) => {
-  const { status = 500, message = 'Server Error' } = err
-  res.status(status).json({ message })
-})
+// app.use((err, req, res, next) => {
+//   const { status = 500, message = 'Server Error' } = err
+//   res.status(status).json({ message })
+// })
+app.use(errorHandler)
 
 module.exports = app
