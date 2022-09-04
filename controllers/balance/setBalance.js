@@ -22,12 +22,12 @@ const setBalance = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Error while creating user balance')
   }
-
+  const { currentBalance } = req.body
   res.status(201).json({
     message: 'Success',
     code: 201,
     data: {
-      balance: req.body
+      balance: currentBalance
     }
   })
 })
