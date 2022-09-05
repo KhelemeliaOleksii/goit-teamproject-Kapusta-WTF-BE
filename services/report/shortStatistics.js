@@ -4,7 +4,7 @@ const TransactionModel = require('../../models/transaction/transactionModel')
 
 const shortStatistics = async (type, id) => {
   const date = new Date()
-  const year = date.getFullYear().toString()
+  const year = date.getFullYear()
   const result = await TransactionModel.aggregate([
     {
       $match: {

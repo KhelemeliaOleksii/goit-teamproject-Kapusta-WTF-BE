@@ -15,8 +15,8 @@ const controller = asyncHandler(async (req, res) => {
     throw new Error(`Date ${date} is not supported`)
   }
   const currentDate = new Date(date)
-  const month = currentDate.getMonth().toString()
-  const year = currentDate.getFullYear().toString()
+  const month = currentDate.getMonth()
+  const year = currentDate.getFullYear()
   const prevResult = await reportServises.shortPerMonthStatistics(month, year, userId)
 
   if (!prevResult) {
