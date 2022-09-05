@@ -21,8 +21,8 @@ const controller = asyncHandler(async (req, res) => {
     throw new Error(`Transaction type ${transactionType} is not supported`)
   }
   const currentDate = new Date(date)
-  const month = currentDate.getMonth().toString()
-  const year = currentDate.getFullYear().toString()
+  const month = currentDate.getMonth()
+  const year = currentDate.getFullYear()
   const type = transactionType.toString()
 
   const result = await reportServises.categoryPerMonthStatistics(month, year, type, userId)

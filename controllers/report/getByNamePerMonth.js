@@ -19,8 +19,8 @@ const controller = asyncHandler(async (req, res) => {
   }
 
   const currentDate = new Date(date)
-  const month = currentDate.getMonth().toString()
-  const year = currentDate.getFullYear().toString()
+  const month = currentDate.getMonth()
+  const year = currentDate.getFullYear()
 
   const result = await reportServises.byNamePerMonth(month, year, category, userId)
 
