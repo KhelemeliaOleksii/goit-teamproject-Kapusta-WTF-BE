@@ -1,0 +1,208 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "0.0.1",
+    "title": "Kapusta Swagger",
+    "description": "Swagger for Kapusta app",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [{ "url": "http://localhost:5000/api/v1" }],
+  "tags": [
+    {
+      "name": "Transaction",
+      "description": "Transactions endpoint"
+    }
+  ],
+  "paths": {
+    "/transactions": {
+      "post": {
+        "tags": ["Transactions"],
+        "summary": "Transaction creation",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Transaction object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "409": {
+            "description": "Operation exceed limit",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TransactionRequest": {
+        "type": "object",
+        "required": ["date", "description", "transactionType", "categoryId", "amount", "userId"],
+        "properties": {
+          "date": {
+            "type": "object",
+            "description": "Transaction's date",
+            "properties": {
+            "day": {
+        "type": "number",
+        "example": "5"
+      },
+      "month": {
+        "type": "number",
+        "example": "8"
+      },
+      "year": {
+        "type": "number",
+        "example": "2022"
+      }
+            }        
+          },
+          "description": {
+            "type": "object",
+            "description": "Transaction's description",
+            "properties": {
+            "descriptionName":{
+            "type": "string",
+            "example": "Ice Cream"
+            }
+          }
+          },
+          "transactionType": {
+            "type": "string",
+            "description": "Transaction's type",
+            "example": "expenses",
+            "enum": "expenses income"
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "Category's ID"            
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Transaction's amount",
+            "example": 100
+          },
+          "userId": {
+            "type": "string",
+            "description": "User's ID"            
+          }
+        }
+      },
+      "TransactionResponse": {        
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "description": "Response's message"
+            },
+            "code": {
+              "type": "integer",
+              "description": "Response's code"
+            },
+            "date": {
+            "type": "object",
+            "description": "Transaction's date",
+            "properties": {
+            "day": {
+        "type": "number",
+        "example": "5"
+      },
+      "month": {
+        "type": "number",
+        "example": "8"
+      },
+      "year": {
+        "type": "number",
+        "example": "2022"
+      }
+            }        
+          },
+          "description": {
+            "type": "object",
+            "description": "Transaction's description",
+            "properties": {
+            "descriptionName":{
+            "type": "string",
+            "example": "Ice Cream"
+            }
+          }
+          },
+          "transactionType": {
+            "type": "string",
+            "description": "Transaction's type",
+            "example": "expenses"
+          },
+          "categoryId": {
+            "type": "string",
+            "description": "Category's ID"            
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Transaction's amount",
+            "example": 100
+          },
+          "userId": {
+            "type": "string",
+            "description": "User's ID"            
+          }
+          }
+        },
+        "example": {
+    "message": "Success",
+    "code": 201,
+    "data": {
+        "transaction": {
+            "date": {
+                "day": "31",
+                "month": "08",
+                "year": "2022"
+            },
+            "description": {
+                "descriptionName": "ковбаса"
+            },
+            "transactionType": "income",
+            "categoryId": "1",
+            "amount": "0"
+        }
+    }
+}
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
