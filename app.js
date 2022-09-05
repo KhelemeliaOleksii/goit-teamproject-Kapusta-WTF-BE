@@ -1,7 +1,7 @@
 console.clear()
 const express = require('express')
 const swaggerUi = require('swagger-ui-express')
-const swaggerDocument = require('./swagger.json')
+const swaggerDocument = require('./swaggerLokshuk.json')
 const logger = require('morgan')
 const cors = require('cors')
 const errorHandler = require('./middlewares/errorHandler')

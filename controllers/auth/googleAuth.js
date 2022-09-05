@@ -5,14 +5,14 @@ const jwt = require('jsonwebtoken')
 const bcryptjs = require('bcryptjs')
 const { userModel } = require('../../models/user/')
 
-const { GOOGLE_CLIENT_ID, SECRET_KEY, GOOGLE_CLIENT_SECRET } =
+const { GOOGLE_CLIENT_ID, SECRET_KEY, GOOGLE_CLIENT_SECRET, PORT } =
   process.env
 
 const googleAuth = asyncHandler(async (_, res) => {
   const stringifiedParams = queryString.stringify({
     client_id: GOOGLE_CLIENT_ID,
-    // redirect_uri: 'http://localhost:5000/api/v1/google-redirect',
-    redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/google-redirect',
+    // redirect_uri: `http://localhost:${PORT}/api/v1/google-redirect`,
+    redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect',
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/userinfo.profile'
@@ -38,8 +38,8 @@ const googleRedirect = asyncHandler(async (req, res) => {
     data: {
       client_id: GOOGLE_CLIENT_ID,
       client_secret: GOOGLE_CLIENT_SECRET,
-      // redirect_uri: 'http://localhost:5000/api/v1/google-redirect',
-      redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/google-redirect',
+      // redirect_uri: `http://localhost:${PORT}/api/v1/google-redirect`,
+      redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect',
       grant_type: 'authorization_code',
       code
     }
@@ -60,7 +60,6 @@ const googleRedirect = asyncHandler(async (req, res) => {
   if (!user) {
     const password = id
     const hashPassword = await bcryptjs.hash(password, 10)
-    // const verificationToken = nanoid();
     const newUser = await userModel.create({
       username: name,
       email,
@@ -79,8 +78,9 @@ const googleRedirect = asyncHandler(async (req, res) => {
     })
     const userToken = await userModel.findOne({ token })
     res.redirect(
-      // `http://localhost:5000/api/v1/google-redirect?token=${userToken.token}`
-      `https://kapusta-wtf.herokuapp.com/api/v1/google-redirect?token=${userToken.token}`
+
+//  `https://wtf-kapusta.netlify.app/login?token=${userToken.token}`
+      `https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect?token=${userToken.token}`
     )
   }
 
@@ -90,8 +90,8 @@ const googleRedirect = asyncHandler(async (req, res) => {
   await userModel.findByIdAndUpdate(_id, { token })
   const userToken = await userModel.findOne({ token })
   res.redirect(
-    // `http://localhost:5000/api/v1/google-redirect?token=${userToken.token}`
-    `https://kapusta-wtf.herokuapp.com/api/v1/google-redirect?token=${userToken.token}`
+// `https://wtf-kapusta.netlify.app/login?token=${userToken.token}`
+    `https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect?token=${userToken.token}`
 
   )
 })
