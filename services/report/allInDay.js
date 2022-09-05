@@ -9,6 +9,13 @@ const byNamePerMonth = async (day, month, year, id) => {
         'date.month': month,
         'date.year': year
       }
+    },
+    {
+      $project: {
+        userId: 0,
+        createdAt: 0,
+        updatedAt: 0
+      }
     }
   ])
 
