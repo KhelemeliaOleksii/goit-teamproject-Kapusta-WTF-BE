@@ -11,7 +11,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:5000" }],
+  "servers": [{ "url": "http://localhost:5000/api/v1" }],
   "tags": [
     {
       "name": "Transaction",
@@ -71,16 +71,37 @@
         "properties": {
           "date": {
             "type": "object",
-            "description": "Transaction's date"            
+            "description": "Transaction's date",
+            "properties": {
+            "day": {
+        "type": "number",
+        "example": "5"
+      },
+      "month": {
+        "type": "number",
+        "example": "8"
+      },
+      "year": {
+        "type": "number",
+        "example": "2022"
+      }
+            }        
           },
           "description": {
             "type": "object",
-            "description": "Transaction's description"            
+            "description": "Transaction's description",
+            "properties": {
+            "descriptionName":{
+            "type": "string",
+            "example": "Ice Cream"
+            }
+          }
           },
           "transactionType": {
             "type": "string",
             "description": "Transaction's type",
-            "example": "expenses"
+            "example": "expenses",
+            "enum": "expenses income"
           },
           "categoryId": {
             "type": "string",
@@ -110,11 +131,31 @@
             },
             "date": {
             "type": "object",
-            "description": "Transaction's date"            
+            "description": "Transaction's date",
+            "properties": {
+            "day": {
+        "type": "number",
+        "example": "5"
+      },
+      "month": {
+        "type": "number",
+        "example": "8"
+      },
+      "year": {
+        "type": "number",
+        "example": "2022"
+      }
+            }        
           },
           "description": {
             "type": "object",
-            "description": "Transaction's description"            
+            "description": "Transaction's description",
+            "properties": {
+            "descriptionName":{
+            "type": "string",
+            "example": "Ice Cream"
+            }
+          }
           },
           "transactionType": {
             "type": "string",
