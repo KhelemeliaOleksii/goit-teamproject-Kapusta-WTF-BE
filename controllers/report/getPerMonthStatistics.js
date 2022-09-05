@@ -17,12 +17,32 @@ const controller = asyncHandler(async (req, res) => {
   const currentDate = new Date(date)
   const month = currentDate.getMonth().toString()
   const year = currentDate.getFullYear().toString()
-  const result = await reportServises.shortPerMonthStatistics(month, year, userId)
+  const prevResult = await reportServises.shortPerMonthStatistics(month, year, userId)
 
-  if (!result) {
+  if (!prevResult) {
     res.status(404)
     throw new Error('error message')
   }
+
+  const result = [
+    {
+      _id: 'expenses',
+      totalAmount: 0
+    },
+    {
+      _id: 'income',
+      totalAmount: 0
+    }
+  ]
+
+  result.forEach((value) => {
+    const idx = prevResult.findIndex((item) => item._id === value._id)
+
+    if (idx + 1) {
+      value.totalAmount = prevResult[idx].totalAmount
+    }
+  })
+
   res.status(200)
     .json({
       message: 'Success',

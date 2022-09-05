@@ -4,16 +4,21 @@ const transactionSchema = new Schema(
   {
     date: {
       day: {
-        type: String,
-        required: true
+        type: Number,
+        required: true,
+        min: 1,
+        max: 31
       },
       month: {
-        type: String,
-        required: true
+        type: Number,
+        required: true,
+        min: 0,
+        max: 11
       },
       year: {
-        type: String,
-        required: true
+        type: Number,
+        required: true,
+        min: 2021
       }
     },
     description: {

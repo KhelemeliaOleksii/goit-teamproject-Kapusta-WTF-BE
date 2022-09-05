@@ -1,25 +1,25 @@
-const { Router } = require("express");
+const { Router } = require('express')
 
-const ctrl = require("../../../controllers/auth/");
+const ctrl = require('../../../controllers/auth/')
 
-const { auth } = require("../../../middlewares/auth/");
+const { auth } = require('../../../middlewares/auth/')
 
-const router = Router();
+const router = Router()
 
-router.post("/signup", ctrl.signup);
+router.post('/users/signup', ctrl.signup)
 
-router.post("/login", ctrl.login);
+router.post('/users/login', ctrl.login)
 
-router.get("/logout", auth, ctrl.logout);
+router.get('/users/logout', auth, ctrl.logout)
 
-router.get("/current", auth, ctrl.getCurrent);
+router.get('/users/current', auth, ctrl.getCurrent)
 
-router.get("/verify/:verificationToken", ctrl.verifyEmail);
+router.get('/users/verify/:verificationToken', ctrl.verifyEmail)
 
-router.post("/verify", ctrl.resendVerifyEmail);
+router.post('/users/verify', ctrl.resendVerifyEmail)
 
-router.get("/google", ctrl.googleAuth);
+router.get('/users/google', ctrl.googleAuth)
 
-router.get("/google-redirect", ctrl.googleRedirect);
+router.get('/users/google-redirect', ctrl.googleRedirect)
 
-module.exports = router;
+module.exports = router

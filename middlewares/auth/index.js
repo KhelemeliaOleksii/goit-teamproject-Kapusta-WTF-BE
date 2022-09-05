@@ -1,7 +1,7 @@
-const auth = require("./auth");
+const auth = require('./auth')
 
 const authMiddleWare = {
-  auth,
-};
+  auth
+}
 
-module.exports = authMiddleWare;
+module.exports = authMiddleWare
