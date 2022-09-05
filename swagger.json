@@ -67,7 +67,7 @@
     "schemas": {
       "TransactionRequest": {
         "type": "object",
-        "required": ["date", "description", "transactionType", "categoryId", "amount", "userId"],
+        "required": ["date", "description", "transactionType", "categoryId", "amount"],
         "properties": {
           "date": {
             "type": "object",
@@ -111,10 +111,6 @@
             "type": "integer",
             "description": "Transaction's amount",
             "example": 100
-          },
-          "userId": {
-            "type": "string",
-            "description": "User's ID"            
           }
         }
       },
