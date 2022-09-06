@@ -13,14 +13,9 @@ const verifyEmail = asyncHandler(async (req, res) => {
     verificationToken: '',
     verify: true
   })
-    res.redirect(
-// `https://wtf-kapusta.netlify.app/login?token=${userToken.token}`
-    // `https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect?token=${userToken.token}`
-    "https://wtf-kapusta.netlify.app/login"
-  )
-  // res.json({
-  //   message: 'Verification successful'
-  // })
+  res.json({
+    message: 'Verification successful'
+  })
 })
 
 module.exports = verifyEmail

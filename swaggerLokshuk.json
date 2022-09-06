@@ -11,7 +11,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:5000/api/v1" }],
+  "servers": [{ "url": "https://kapusta-wtf.herokuapp.com/api/v1" }],
   "tags": [
     {
       "name": "Auth",
@@ -23,28 +23,6 @@
     }
   ],
   "paths": {
-
-    "/categories":{
-      "get":{
-        "tags": ["Category"],
-        "summary": "Get categories",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Authentication's object",
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "404": {
-            "description": "User not found",
-            "content": {}
-          }
-        }
-      }
-    },
 
     "/users/signup": {
       "post": {
@@ -85,7 +63,7 @@
       }
     },
 
-    "/api/v1/users/verify/:verifyToken": {
+    "/users/verify/:verifyToken": {
       "get": {
         "tags": ["Auth"],
         "summary": "User verify",
@@ -145,7 +123,7 @@
       }
     },
 
-     "/api/v1/users/logout": {
+     "/users/logout": {
       "get": {
         "tags": ["Auth"],
         "summary": "User logout",
@@ -158,13 +136,53 @@
           }
         }
       }
+    },
+
+    "/users/current": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get user information",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserRequest"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body / Token not provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/google": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Auth user from Google",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {}
+          }
+        }
+      }
     }
   },
 
   "components": {
     "schemas": {
-
-      "SignupRequest": {
+      "RegistrationRequest": {
         "type": "object",
         "required": ["email", "password"],
         "properties": {
@@ -191,8 +209,7 @@
               "description": "User's email",
               "format": "email"
             },
-
-           "verifyToken": {
+           "verificationToken": {
              "type": "string",
              "description": "User's id",
              "example": "ghjf-ghi789nYxM12ZEK2"
@@ -202,6 +219,7 @@
         "example": [{ "email": "1@gmail.com", "verifyToken": "ghjf-ghi789nYx" }]
       },
       
+
 
       "LoginRequest": {
         "required": ["email", "password"],
@@ -240,6 +258,27 @@
                 "type": "string",
                 "description": "User's id",
                 "example": "6149a22c1c18fd535c9745c8"
+              }
+            }
+          }
+        }
+      },
+      "CurrentUserRequest": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "iOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWyuHVl913NARFUEqVlKaSJR"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email",
+                "example": "1@email.com"
               }
             }
           }
