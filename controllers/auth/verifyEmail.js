@@ -4,7 +4,6 @@ const { userModel } = require('../../models/user/')
 
 const verifyEmail = asyncHandler(async (req, res) => {
   const { verificationToken } = req.params
-  console.log(verificationToken);
   const user = await userModel.findOne({ verificationToken })
   if (!user) {
     res.status(400)
@@ -17,9 +16,6 @@ const verifyEmail = asyncHandler(async (req, res) => {
     res.redirect(
     "https://wtf-kapusta.netlify.app/login"
   )
-  // res.json({
-  //   message: 'Verification successful'
-  // })
 })
 
 module.exports = verifyEmail
