@@ -40,7 +40,7 @@ const signup = asyncHandler(async (req, res) => {
     user: {
       email: result.email
     }
-  })  
+  })
 })
 
 module.exports = signup
