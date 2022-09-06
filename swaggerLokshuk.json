@@ -16,15 +16,40 @@
     {
       "name": "Auth",
       "description": "Authorization endpoints"
+    },
+    {
+      "name": "Category",
+      "description": "Categories endpoint"
     }
   ],
   "paths": {
+
+    "/categories":{
+      "get":{
+        "tags": ["Category"],
+        "summary": "Get categories",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Authentication's object",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
 
     "/users/signup": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
-        "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Registration's object",
@@ -32,7 +57,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                "$ref": "#/components/schemas/SignupRequest"
               }
             }
           }
@@ -43,7 +68,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "$ref": "#/components/schemas/SignupResponse"
                 }
               }
             }
@@ -155,7 +180,8 @@
           }
         }
       },
-      "RegistrationResponse": {
+
+      "SigupResponse": {
         "type": "array",
         "items": {
           "type": "object",
@@ -165,6 +191,7 @@
               "description": "User's email",
               "format": "email"
             },
+
            "verifyToken": {
              "type": "string",
              "description": "User's id",
