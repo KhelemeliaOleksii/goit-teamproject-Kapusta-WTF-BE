@@ -78,9 +78,8 @@ const googleRedirect = asyncHandler(async (req, res) => {
     })
     const userToken = await userModel.findOne({ token })
     res.redirect(
-
 //  `https://wtf-kapusta.netlify.app/login?token=${userToken.token}`
-      `https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect?token=${userToken.token}`
+      `https://wtf-kapusta.netlify.app/home`
     )
   }
 
@@ -91,8 +90,7 @@ const googleRedirect = asyncHandler(async (req, res) => {
   const userToken = await userModel.findOne({ token })
   res.redirect(
 // `https://wtf-kapusta.netlify.app/login?token=${userToken.token}`
-    `https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect?token=${userToken.token}`
-
+    `https://wtf-kapusta.netlify.app/home`
   )
 })
 
