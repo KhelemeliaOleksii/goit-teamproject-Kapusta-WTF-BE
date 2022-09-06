@@ -31,7 +31,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TransactionRequest"
+                "$ref": "#/components/schemas/TransactionCreateRequest"
               }
             }
           }
@@ -42,7 +42,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TransactionResponse"
+                  "$ref": "#/components/schemas/TransactionCreateResponse"
                 }
               }
             }
@@ -60,12 +60,49 @@
             "content": {}
           }
         }
+      },
+      "delete": {
+        "tags": ["Transactions"],
+        "summary": "Transaction deletion",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Transaction object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionDeleteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error while deleting transaction",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
-      "TransactionRequest": {
+      "TransactionCreateRequest": {
         "type": "object",
         "required": ["date", "description", "transactionType", "categoryId", "amount"],
         "properties": {
@@ -114,7 +151,7 @@
           }
         }
       },
-      "TransactionResponse": {        
+      "TransactionCreateResponse": {        
           "type": "object",
           "properties": {
             "message": {
@@ -171,9 +208,8 @@
             "type": "string",
             "description": "User's ID"            
           }
-          }
-        },
-        "example": {
+          },
+          "example": {
     "message": "Success",
     "code": 201,
     "data": {
@@ -190,6 +226,49 @@
             "categoryId": "1",
             "amount": "0"
         }
+    }
+}
+        },
+        
+"TransactionDeleteRequest": {
+        "type": "object",
+        "required": ["transactionId"],
+        "properties": {
+          "transactionId": {
+            "type": "string",
+            "description": "Transaction's ID",
+            "example": "631718cd0aad7aecbad090dd"
+          }
+        }
+      },
+      "TransactionDeleteResponse": {        
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "description": "Response's message"
+            },
+            "code": {
+              "type": "integer",
+              "description": "Response's code"
+            },
+            "data": {
+            "type": "object",
+            "description": "Transaction's data",
+            "properties": {
+            "id": {
+        "type": "number",
+        "example": "631718cd0aad7aecbad090dd"
+      }
+            }
+          }
+          }
+        },
+        "example": {
+    "message": "Transaction deleted",
+    "code": 200,
+    "data": {
+        "id": "631718cd0aad7aecbad090dd"
     }
 }
       }

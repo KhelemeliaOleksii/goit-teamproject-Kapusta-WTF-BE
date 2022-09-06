@@ -1,9 +1,11 @@
 const createTransaction = require('./createTransaction')
 const deleteTransaction = require('./deleteTransaction')
+const findTransaction = require('./findTransaction')
 
 const transactionsService = {
   createTransaction,
-  deleteTransaction
+  deleteTransaction,
+  findTransaction
 }
 
 module.exports = transactionsService
