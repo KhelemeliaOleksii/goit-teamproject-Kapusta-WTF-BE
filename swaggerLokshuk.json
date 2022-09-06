@@ -16,14 +16,18 @@
     {
       "name": "Auth",
       "description": "Authorization endpoints"
+    },
+    {
+      "name": "Category",
+      "description": "Categories endpoint"
     }
   ],
   "paths": {
+
     "/users/signup": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
-        "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Registration's object",
@@ -194,7 +198,8 @@
           }
         }
       },
-      "RegistrationResponse": {
+
+      "SigupResponse": {
         "type": "array",
         "items": {
           "type": "object",
