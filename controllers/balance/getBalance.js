@@ -6,7 +6,7 @@ const getBalance = asyncHandler(async (req, res) => {
   const { _id } = req.user
   if (!_id) {
     res.status(401)
-    throw new Error('Invalid user id')
+    throw new Error('Not authorized')
   }
 
   try {

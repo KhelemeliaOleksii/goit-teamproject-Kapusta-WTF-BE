@@ -8,7 +8,7 @@ const setBalance = asyncHandler(async (req, res) => {
   const { _id } = req.user
   if (!_id) {
     res.status(401)
-    throw new Error('Invalid user id')
+    throw new Error('Not authorized')
   }
   const { error } = balanceValidation.validateBalance(req.body)
   if (error) {
