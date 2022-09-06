@@ -13,8 +13,8 @@ const verifyEmail = asyncHandler(async (req, res) => {
     verificationToken: '',
     verify: true
   })
-    res.redirect(
-    "https://wtf-kapusta.netlify.app/login"
+  res.redirect(
+    'https://wtf-kapusta.netlify.app/login'
   )
 })
 

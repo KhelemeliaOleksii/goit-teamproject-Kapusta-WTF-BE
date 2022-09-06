@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const bcryptjs = require('bcryptjs')
 const { userModel } = require('../../models/user/')
 
-const { GOOGLE_CLIENT_ID, SECRET_KEY, GOOGLE_CLIENT_SECRET, PORT } =
+const { GOOGLE_CLIENT_ID, SECRET_KEY, GOOGLE_CLIENT_SECRET } =
   process.env
 
 const googleAuth = asyncHandler(async (_, res) => {
@@ -75,20 +75,32 @@ const googleRedirect = asyncHandler(async (req, res) => {
       verify: true,
       verificationToken: ''
     })
-    const userToken = await userModel.findOne({ token })
-    res.redirect(
-   'https://wtf-kapusta.netlify.app/home'
-    )
+    await userModel.findOne({ token })
+    res
+      .status(201)
+      .json({
+        token,
+        email
+      })
+      .redirect(
+        'https://wtf-kapusta.netlify.app/home'
+      )
   }
 
   const { _id } = user
   const payload = { _id }
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' })
   await userModel.findByIdAndUpdate(_id, { token })
-  const userToken = await userModel.findOne({ token })
-  res.redirect(
-  'https://wtf-kapusta.netlify.app/home'
-  )
+  await userModel.findOne({ token })
+  res
+    .status(200)
+    .json({
+      token,
+      email
+    })
+    .redirect(
+      'https://wtf-kapusta.netlify.app/home'
+    )
 })
 
 module.exports = { googleAuth, googleRedirect }
