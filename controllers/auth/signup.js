@@ -14,7 +14,7 @@ const signup = asyncHandler(async (req, res) => {
   }
 
   const { email, password } = req.body
-  const user = await userModel.findOne({ email })
+  const user = await userModel.findOne({ email: email.toLowerCase() })
   if (user) {
     res.status(409)
     throw new Error('Email in use')
@@ -23,7 +23,7 @@ const signup = asyncHandler(async (req, res) => {
   const hashPassword = await bcrypt.hash(password, 10)
   const verificationToken = nanoid()
   const result = await userModel.create({
-    ...req.body,
+    email: email.toLowerCase(),
     username: email.substring(email[0], email.search('@')),
     password: hashPassword,
     verificationToken

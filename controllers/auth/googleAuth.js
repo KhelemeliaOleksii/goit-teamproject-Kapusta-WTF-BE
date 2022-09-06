@@ -11,7 +11,7 @@ const { GOOGLE_CLIENT_ID, SECRET_KEY, GOOGLE_CLIENT_SECRET, PORT } =
 const googleAuth = asyncHandler(async (_, res) => {
   const stringifiedParams = queryString.stringify({
     client_id: GOOGLE_CLIENT_ID,
-    // redirect_uri: `http://localhost:${PORT}/api/v1/google-redirect`,
+    // redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
     redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect',
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
@@ -38,7 +38,7 @@ const googleRedirect = asyncHandler(async (req, res) => {
     data: {
       client_id: GOOGLE_CLIENT_ID,
       client_secret: GOOGLE_CLIENT_SECRET,
-      // redirect_uri: `http://localhost:${PORT}/api/v1/google-redirect`,
+      // redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
       redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect',
       grant_type: 'authorization_code',
       code
@@ -56,7 +56,6 @@ const googleRedirect = asyncHandler(async (req, res) => {
   const { email, name, picture, id } = userData.data
 
   const user = await userModel.findOne({ email })
-
   if (!user) {
     const password = id
     const hashPassword = await bcryptjs.hash(password, 10)
@@ -70,7 +69,7 @@ const googleRedirect = asyncHandler(async (req, res) => {
     const payload = {
       id: newUser._id
     }
-    const token = jwt.sign(payload, SECRET_KEY)
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' })
     await userModel.findByIdAndUpdate(newUser._id, {
       token,
       verify: true,
@@ -78,8 +77,7 @@ const googleRedirect = asyncHandler(async (req, res) => {
     })
     const userToken = await userModel.findOne({ token })
     res.redirect(
-//  `https://wtf-kapusta.netlify.app/login?token=${userToken.token}`
-      `https://wtf-kapusta.netlify.app/home`
+   'https://wtf-kapusta.netlify.app/home'
     )
   }
 
@@ -89,8 +87,7 @@ const googleRedirect = asyncHandler(async (req, res) => {
   await userModel.findByIdAndUpdate(_id, { token })
   const userToken = await userModel.findOne({ token })
   res.redirect(
-// `https://wtf-kapusta.netlify.app/login?token=${userToken.token}`
-    `https://wtf-kapusta.netlify.app/home`
+  'https://wtf-kapusta.netlify.app/home'
   )
 })
 
