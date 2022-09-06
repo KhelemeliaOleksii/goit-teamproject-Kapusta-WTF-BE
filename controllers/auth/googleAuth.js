@@ -77,11 +77,11 @@ const googleRedirect = asyncHandler(async (req, res) => {
     })
     await userModel.findOne({ token })
     res
-      .status(201)
-      .json({
-        token,
-        email
-      })
+      // .status(201)
+      // .json({
+      //   token,
+      //   email
+      // })
       .redirect(
         'https://wtf-kapusta.netlify.app/home'
       )
@@ -93,14 +93,14 @@ const googleRedirect = asyncHandler(async (req, res) => {
   await userModel.findByIdAndUpdate(_id, { token })
   await userModel.findOne({ token })
   res
-    .status(200)
-    .json({
-      token,
-      email
-    })
-    .redirect(
-      'https://wtf-kapusta.netlify.app/home'
-    )
+    // .status(200)
+    // .json({
+    //   token,
+    //   email
+    // })
+      .redirect(
+        'https://wtf-kapusta.netlify.app/home'
+      )
 })
 
 module.exports = { googleAuth, googleRedirect }
