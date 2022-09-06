@@ -7,7 +7,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
   console.log(verificationToken);
   const user = await userModel.findOne({ verificationToken })
   if (!user) {
-    res.status(404)
+    res.status(404).redirect("https://wtf-kapusta.netlify.app/login")
     throw new Error('User not found')
   }
   await userModel.findByIdAndUpdate(user._id, {
