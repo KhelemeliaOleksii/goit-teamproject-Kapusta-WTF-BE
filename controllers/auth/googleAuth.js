@@ -84,7 +84,7 @@ const googleRedirect = asyncHandler(async (req, res) => {
         email
       })
       .redirect(
-        'https://wtf-kapusta.netlify.app/home'
+        'https://wtf-kapusta.netlify.app'
       )
   }
 
@@ -100,7 +100,7 @@ const googleRedirect = asyncHandler(async (req, res) => {
       email
     })
     .redirect(
-      'https://wtf-kapusta.netlify.app/home'
+      'https://wtf-kapusta.netlify.app'
     )
 })
 
