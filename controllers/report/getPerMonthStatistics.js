@@ -43,7 +43,8 @@ const controller = asyncHandler(async (req, res) => {
       message: 'Success',
       code: 200,
       data: {
-        result
+        result,
+        userId
       }
     })
 })
