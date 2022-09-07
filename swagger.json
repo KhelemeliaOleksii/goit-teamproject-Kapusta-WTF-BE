@@ -226,15 +226,15 @@
             "properties": {
               "day": {
                 "type": "number",
-                "example": "5"
+                "example": 5
               },
               "month": {
                 "type": "number",
-                "example": "8"
+                "example": 8
               },
               "year": {
                 "type": "number",
-                "example": "2022"
+                "example": 2022
               }
             }
           },
@@ -282,15 +282,15 @@
             "properties": {
               "day": {
                 "type": "number",
-                "example": "5"
+                "example": 5
               },
               "month": {
                 "type": "number",
-                "example": "8"
+                "example": 8
               },
               "year": {
                 "type": "number",
-                "example": "2022"
+                "example": 2022
               }
             }
           },
@@ -372,7 +372,7 @@
             "description": "Transaction's data",
             "properties": {
               "id": {
-                "type": "number",
+                "type": "string",
                 "example": "6316f81290df3bc8e0bb807d"
               }
             }
@@ -417,7 +417,7 @@
               "data": {
                 "type": "number",
                 "description": "Recorded balance",
-                "example": "1000"
+                "example": 1000
               }
             }
           }
