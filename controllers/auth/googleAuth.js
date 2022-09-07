@@ -76,29 +76,31 @@ const googleRedirect = asyncHandler(async (req, res) => {
       verificationToken: ''
     })
     await userModel.findOne({ token })
-    res.redirect(
-        'https://wtf-kapusta.netlify.app/home'
-      )
+    res
       .status(201)
       .json({
         token,
         email
       })
-    }
+      .redirect(
+        'https://wtf-kapusta.netlify.app/home'
+      )
+  }
 
   const { _id } = user
   const payload = { _id }
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' })
   await userModel.findByIdAndUpdate(_id, { token })
   await userModel.findOne({ token })
-  res.redirect(
-        'https://wtf-kapusta.netlify.app/home'
-      )
+  res
     .status(200)
     .json({
       token,
       email
     })
-  })
+    .redirect(
+      'https://wtf-kapusta.netlify.app/home'
+    )
+})
 
 module.exports = { googleAuth, googleRedirect }

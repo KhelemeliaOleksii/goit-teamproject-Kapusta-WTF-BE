@@ -7,11 +7,11 @@ const logout = asyncHandler(async (req, res) => {
   await userModel.findByIdAndUpdate(_id, { token: '' })
   // res.status(204).redirect('https://wtf-kapusta.netlify.app/login')
   res.status(204)
-  .json({
-    status: "success",
-    code:204,
-    message: "User logged out successfuly"
-  })
+    .json({
+      status: 'success',
+      code: 204,
+      message: 'User logged out successfuly'
+    })
 })
 
 module.exports = logout
