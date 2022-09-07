@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "0.0.1",
+    "version": "0.0.5",
     "title": "Kapusta Swagger",
     "description": "Swagger for Kapusta app",
     "license": {
@@ -9,22 +9,48 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:5000/api/v1" }],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "servers": [
+    {
+      "url": "https://kapusta-wtf.herokuapp.com/api/v1"
+    }
+  ],
   "tags": [
     {
-      "name": "Transaction",
+      "name": "Transactions",
       "description": "Transactions endpoint"
+    },
+    {
+      "name": "Balance",
+      "description": "Balance endpoint"
+    },
+    {
+      "name": "Category",
+      "description": "Categories endpoint"
+    },
+    {
+      "name": "Report",
+      "description": "Report endpoints"
     }
   ],
   "paths": {
     "/transactions": {
       "post": {
-        "tags": ["Transactions"],
+        "tags": [
+          "Transactions"
+        ],
         "summary": "Transaction creation",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "Transaction object",
           "required": true,
@@ -62,10 +88,16 @@
         }
       },
       "delete": {
-        "tags": ["Transactions"],
+        "tags": [
+          "Transactions"
+        ],
         "summary": "Transaction deletion",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "Transaction object",
           "required": true,
@@ -98,41 +130,416 @@
           }
         }
       }
+    },
+    "/balance": {
+      "post": {
+        "tags": [
+          "Balance"
+        ],
+        "summary": "Balance creation",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Balance object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BalanceCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BalanceCreateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Balance"
+        ],
+        "summary": "Get balance",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Balance object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBalanceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBalanceResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "get all categories",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategories"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/report/short": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get expenses or income transactions for the last six months of the current year",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "transactionType",
+            "description": "transaction type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "user",
+            "name": "_id: userId",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetShortStatistics"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Transaction type ${transactionType} is not supported",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/report/short-per-month": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get expenses or income transactions for the selected month and year",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "description": "date",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "user",
+            "name": "_id: userId",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPerMonthStatistics"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "400": {
+            "description": "Date is not supported",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/report/category-per-month": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get expenses or income transactions by category in the selected month and year",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "description": "date",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "transactionType",
+            "description": "transaction type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "user",
+            "name": "_id: userId",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategoryPerMonthStatistics"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "400": {
+            "description": "Date or transaction type is not supported",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/report/by-name-per-month": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get statistics on the name of the transactions in the selected category for the selected month and year",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "description": "date",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "description": "category id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "user",
+            "name": "_id: userId",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetByNamePerMonth"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "400": {
+            "description": "Date or category is not supported",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/report/all-in-day": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get  all transactions per day",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "description": "date",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "user",
+            "name": "_id: userId",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllInDay"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "400": {
+            "description": "Date is not supported",
+            "content": {}
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
       "TransactionCreateRequest": {
         "type": "object",
-        "required": ["date", "description", "transactionType", "categoryId", "amount"],
+        "required": [
+          "date",
+          "description",
+          "transactionType",
+          "categoryId",
+          "amount"
+        ],
         "properties": {
           "date": {
             "type": "object",
             "description": "Transaction's date",
             "properties": {
-            "day": {
-        "type": "number",
-        "example": "5"
-      },
-      "month": {
-        "type": "number",
-        "example": "8"
-      },
-      "year": {
-        "type": "number",
-        "example": "2022"
-      }
-            }        
+              "day": {
+                "type": "number",
+                "example": 5
+              },
+              "month": {
+                "type": "number",
+                "example": 8
+              },
+              "year": {
+                "type": "number",
+                "example": 2022
+              }
+            }
           },
           "description": {
             "type": "object",
             "description": "Transaction's description",
             "properties": {
-            "descriptionName":{
-            "type": "string",
-            "example": "Ice Cream"
+              "descriptionName": {
+                "type": "string",
+                "example": "Ice Cream"
+              }
             }
-          }
           },
           "transactionType": {
             "type": "string",
@@ -142,7 +549,7 @@
           },
           "categoryId": {
             "type": "string",
-            "description": "Category's ID"            
+            "description": "Category's ID"
           },
           "amount": {
             "type": "integer",
@@ -151,44 +558,44 @@
           }
         }
       },
-      "TransactionCreateResponse": {        
-          "type": "object",
-          "properties": {
-            "message": {
-              "type": "string",
-              "description": "Response's message"
-            },
-            "code": {
-              "type": "integer",
-              "description": "Response's code"
-            },
-            "date": {
+      "TransactionCreateResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Response's message"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response's code"
+          },
+          "date": {
             "type": "object",
             "description": "Transaction's date",
             "properties": {
-            "day": {
-        "type": "number",
-        "example": "5"
-      },
-      "month": {
-        "type": "number",
-        "example": "8"
-      },
-      "year": {
-        "type": "number",
-        "example": "2022"
-      }
-            }        
+              "day": {
+                "type": "number",
+                "example": 5
+              },
+              "month": {
+                "type": "number",
+                "example": 8
+              },
+              "year": {
+                "type": "number",
+                "example": 2022
+              }
+            }
           },
           "description": {
             "type": "object",
             "description": "Transaction's description",
             "properties": {
-            "descriptionName":{
-            "type": "string",
-            "example": "Ice Cream"
+              "descriptionName": {
+                "type": "string",
+                "example": "Ice Cream"
+              }
             }
-          }
           },
           "transactionType": {
             "type": "string",
@@ -197,7 +604,7 @@
           },
           "categoryId": {
             "type": "string",
-            "description": "Category's ID"            
+            "description": "Category's ID"
           },
           "amount": {
             "type": "integer",
@@ -206,78 +613,385 @@
           },
           "userId": {
             "type": "string",
-            "description": "User's ID"            
+            "description": "User's ID"
           }
-          },
-          "example": {
-    "message": "Success",
-    "code": 201,
-    "data": {
-        "transaction": {
-            "date": {
+        },
+        "example": {
+          "message": "Success",
+          "code": 201,
+          "data": {
+            "transaction": {
+              "date": {
                 "day": "31",
                 "month": "08",
                 "year": "2022"
-            },
-            "description": {
+              },
+              "description": {
                 "descriptionName": "ковбаса"
-            },
-            "transactionType": "income",
-            "categoryId": "1",
-            "amount": "0"
+              },
+              "transactionType": "income",
+              "categoryId": "1",
+              "amount": "0"
+            }
+          }
         }
-    }
-}
-        },
-        
-"TransactionDeleteRequest": {
+      },
+      "TransactionDeleteRequest": {
         "type": "object",
-        "required": ["transactionId"],
+        "required": [
+          "transactionId"
+        ],
         "properties": {
           "transactionId": {
             "type": "string",
             "description": "Transaction's ID",
-            "example": "631718cd0aad7aecbad090dd"
+            "example": "6316f81290df3bc8e0bb807d"
           }
         }
       },
-      "TransactionDeleteResponse": {        
-          "type": "object",
-          "properties": {
-            "message": {
-              "type": "string",
-              "description": "Response's message"
-            },
-            "code": {
-              "type": "integer",
-              "description": "Response's code"
-            },
-            "data": {
+      "TransactionDeleteResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Response's message"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response's code"
+          },
+          "data": {
             "type": "object",
             "description": "Transaction's data",
             "properties": {
-            "id": {
-        "type": "number",
-        "example": "631718cd0aad7aecbad090dd"
-      }
+              "id": {
+                "type": "string",
+                "example": "6316f81290df3bc8e0bb807d"
+              }
             }
-          }
           }
         },
         "example": {
-    "message": "Transaction deleted",
-    "code": 200,
-    "data": {
-        "id": "631718cd0aad7aecbad090dd"
+          "message": "Transaction deleted",
+          "code": 200,
+          "data": {
+            "id": "631718cd0aad7aecbad090dd"
+          }
+        }
+      },
+      "BalanceCreateRequest": {
+        "type": "object",
+        "required": [
+          "currentBalance"
+        ],
+        "properties": {
+          "currentBalance": {
+            "type": "integer",
+            "description": "Balance's value",
+            "example": 1000
+          }
+        }
+      },
+      "BalanceCreateResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Response's message"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response's code"
+          },
+          "data": {
+            "type": "object",
+            "description": "Transaction's data",
+            "properties": {
+              "data": {
+                "type": "number",
+                "description": "Recorded balance",
+                "example": 1000
+              }
+            }
+          }
+        },
+        "example": {
+          "message": "Success",
+          "code": 200,
+          "data": {
+            "balance": "1000"
+          }
+        }
+      },
+      "GetBalanceRequest": {
+        "type": "object",
+        "required": [
+          "_id"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's ID",
+            "example": "6317422018d90abea5e080aa"
+          }
+        }
+      },
+      "GetBalanceResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Response's message"
+          },
+          "code": {
+            "type": "integer",
+            "description": "Response's code"
+          },
+          "data": {
+            "type": "object",
+            "description": "Transaction's data",
+            "properties": {
+              "data": {
+                "type": "number",
+                "description": "Current balance value",
+                "example": 1000
+              }
+            }
+          }
+        },
+        "example": {
+          "message": "Success",
+          "code": 201,
+          "data": {
+            "balance": "1000"
+          }
+        }
+      },
+      "GetCategories": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+          },
+          "data": {
+            "type": "array",
+            "item": {
+              "response": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "category id",
+                    "exemple": "63121fd1313da79b043d7b9a"
+                  },
+                  "categoryName": {
+                    "type": "string",
+                    "description": "category name",
+                    "exemple": "Алкоголь"
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "image URL",
+                    "exemple": ""
+                  },
+                  "categoryType": {
+                    "type": "string",
+                    "description": "category type",
+                    "exemple": "expenses"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetShortStatistics": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+          },
+          "data": {
+            "type": "array",
+            "item": {
+              "response": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "month index",
+                    "exemple": "0"
+                  },
+                  "totalAmount": {
+                    "type": "integer",
+                    "description": "total amount",
+                    "exemple": "1234"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetPerMonthStatistics": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+          },
+          "data": {
+            "type": "array",
+            "item": {
+              "response": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "transaction type",
+                    "exemple": "expenses"
+                  },
+                  "totalAmount": {
+                    "type": "integer",
+                    "description": "total amount",
+                    "exemple": "1234"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetCategoryPerMonthStatistics": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+          },
+          "data": {
+            "type": "array",
+            "item": {
+              "response": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "category id",
+                    "exemple": "63121fd1313da79b043d7b95"
+                  },
+                  "totalAmount": {
+                    "type": "integer",
+                    "description": "total amount",
+                    "exemple": "1234"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetByNamePerMonth": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+          },
+          "data": {
+            "type": "array",
+            "item": {
+              "response": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "product name",
+                    "exemple": "сало"
+                  },
+                  "totalAmount": {
+                    "type": "integer",
+                    "description": "total amount",
+                    "exemple": "1234"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetAllInDay": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+          },
+          "data": {
+            "type": "array",
+            "item": {
+              "date": {
+                "type": "object",
+                "description": "Transaction's date",
+                "properties": {
+                  "day": {
+                    "type": "number",
+                    "example": 5
+                  },
+                  "month": {
+                    "type": "number",
+                    "example": 8
+                  },
+                  "year": {
+                    "type": "number",
+                    "example": 2022
+                  }
+                }
+              }
+            },
+            "description": {
+              "type": "object",
+              "description": "Transaction's description",
+              "properties": {
+                "descriptionName": {
+                  "type": "string",
+                  "example": "Ice Cream"
+                }
+              }
+            },
+            "transactionType": {
+              "type": "string",
+              "description": "Transaction's type",
+              "example": "expenses"
+            },
+            "categoryId": {
+              "type": "string",
+              "description": "Category ID",
+              "example": "63121fd1313da79b043d7b98"
+            },
+            "amount": {
+              "type": "integer",
+              "description": "Transaction's amount",
+              "example": 100
+            }
+          }
+        }
+      }
     }
-}
-      }
-    },
-    "securitySchemes": {
-      "Bearer": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
+  },
+  "securitySchemes": {
+    "Bearer": {
+      "type": "http",
+      "scheme": "bearer",
+      "bearerFormat": "JWT"
     }
   }
+}
