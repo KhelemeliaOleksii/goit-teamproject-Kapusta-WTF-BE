@@ -44,7 +44,8 @@ const controller = asyncHandler(async (req, res) => {
       code: 200,
       data: {
         result,
-        userId
+        userId,
+        prevResult
       }
     })
 })
