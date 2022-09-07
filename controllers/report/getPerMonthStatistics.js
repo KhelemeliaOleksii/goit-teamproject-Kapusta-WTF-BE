@@ -37,13 +37,14 @@ const controller = asyncHandler(async (req, res) => {
       value.totalAmount = prevResult[idx].totalAmount
     }
   })
-
+  const typeID = typeof userId
   res.status(200)
     .json({
       message: 'Success',
       code: 200,
       data: {
-        result
+        result,
+        typeID
       }
     })
 })
