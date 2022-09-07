@@ -81,11 +81,9 @@ const googleRedirect = asyncHandler(async (req, res) => {
       .status(201)
       .json({
         token,
-        email
+        email,
+        redirect: 'https://wtf-kapusta.netlify.app'
       })
-      .redirect(
-        'https://wtf-kapusta.netlify.app'
-      )
   }
 
   const { _id } = user
@@ -97,11 +95,9 @@ const googleRedirect = asyncHandler(async (req, res) => {
     .status(200)
     .json({
       token,
-      email
+      email,
+      redirect: 'https://wtf-kapusta.netlify.app'
     })
-    .redirect(
-      'https://wtf-kapusta.netlify.app'
-    )
 })
 
 module.exports = { googleAuth, googleRedirect }
