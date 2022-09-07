@@ -11,86 +11,63 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "https://kapusta-wtf.herokuapp.com/api/v1" }],
+  "servers": [{ "url": "https://kapusta-wtf.herokuapp.com/api/v1/" }],
   "tags": [
     {
       "name": "Auth",
       "description": "Authorization endpoints"
-    },
-    {
-      "name": "Category",
-      "description": "Categories endpoint"
     }
   ],
+  
   "paths": {
-
-    "/users/signup": {
+  "/users/signup": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
-        "security": [{ "Bearer": [] }],
+        "parameters": [],
         "requestBody": {
-          "description": "Registration's object",
+          "description": "Register's object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SignupRequest"
+                "$ref": "#/components/schemas/RegisterRequest"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Successful operation",
+            "description": "success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SignupResponse"
+                  "$ref": "#/components/schemas/RegisterResponse"
                 }
               }
             }
           },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
           "409": {
-            "description": "Provided email already exists",
-            "content": {}
+            "description": "Email in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterError"
+                }
+              }
+            }
           }
         }
       }
     },
-
-    "/users/verify/:verifyToken": {
-      "get": {
-        "tags": ["Auth"],
-        "summary": "User verify",
-        "parameters": [],
-        "requestBody": {
-          "description": "Authentication's object",
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Verification success"
-          },
-          "404": {
-            "description": "User not found",
-            "content": {}
-          }
-        }
-      }
-    },
-
+    
     "/users/login": {
       "post": {
         "tags": ["Auth"],
-        "summary": "User authorization",
-        "parameters": [{ "Bearer": [] }],
+        "summary": "User authentication",
+        "parameters": [],
         "requestBody": {
-          "description": "Authorization object with tokens",
+          "description": "Login's object",
           "required": true,
           "content": {
             "application/json": {
@@ -102,7 +79,7 @@
         },
         "responses": {
           "200": {
-            "description": "Successful operation",
+            "description": "success",
             "content": {
               "application/json": {
                 "schema": {
@@ -111,68 +88,191 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid credentials",
-            "content": {}
-          },
           "401": {
-            "description": "Invalid credentials",
-            "content": {}
-          }
-        }
-      }
-    },
-
-     "/users/logout": {
-      "get": {
-        "tags": ["Auth"],
-        "summary": "User logout",
-        "security": [{ "Bearer": [] }],
-        "parameters": [],
-
-        "responses": {
-          "200": {
-            "description": "Logout success"
-          }
-        }
-      }
-    },
-
-    "/users/current": {
-      "get": {
-        "tags": ["Auth"],
-        "summary": "Get user information",
-        "security": [{ "Bearer": [] }],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Success",
+            "description": "Email or password is wrong",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CurrentUserRequest"
+                  "$ref": "#/components/schemas/LoginErrorResponse"
                 }
               }
             }
           },
-          "400": {
-            "description": "Invalid request body / Token not provided",
-            "content": {}
-          },
-          "401": {
-            "description": "Not authorized",
-            "content": {}
+          "409": {
+            "description": "User has not verified his email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginErrorVerifiedResponse"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/users/google": {
+    
+    "/users/logout": {
       "post": {
         "tags": ["Auth"],
-        "summary": "Auth user from Google",
+        "summary": "User logout",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {},
+        "responses": {
+          "204": {
+            "description": "success",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "500": {
+            "description": "Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    
+    "/users/current": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User current. Check the token in the request header!",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
-            "description": "Successful operation",
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/users/verify/{verificationToken}": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User email verify",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "verificationToken",
+            "required": true,
+            "type": "string",
+            "description": "User verify token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserVerifyResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseUserVerify"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/users/verify": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User email repeat verify",
+        "parameters": [],
+        "requestBody": {
+          "description": "User email object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepeatVerifyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRepeatVerifyResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Verification has already been passed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseUserRepeatVerify"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+     "/users/google": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Google authentication.",
+        "parameters": [],
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "content": {}
+          },
+          "403": {
+            "description": "Not registered",
             "content": {}
           }
         }
@@ -180,9 +280,10 @@
     }
   },
 
+
   "components": {
     "schemas": {
-      "RegistrationRequest": {
+      "RegisterRequest": {
         "type": "object",
         "required": ["email", "password"],
         "properties": {
@@ -194,36 +295,57 @@
           "password": {
             "type": "string",
             "description": "User's password",
-            "example": "qwerty123456"
+            "example": "qwerty123"
           }
         }
       },
 
-      "SigupResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            },
-           "verificationToken": {
-             "type": "string",
-             "description": "User's id",
-             "example": "ghjf-ghi789nYxM12ZEK2"
-           }
+      "RegisterResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "201"
+          },
+          "user": {
+            "type": "object",
+            "description": "User's credential",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              }
+            }
           }
-        },
-        "example": [{ "email": "1@gmail.com", "verifyToken": "ghjf-ghi789nYx" }]
+        }
       },
-      
 
+      "RegisterError": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "error"
+          },
+          "code": {
+            "type": "string",
+            "description": "409"
+          },
+          "message": {
+            "type": "string",
+            "description": "Email in use"
+          }
+        }
+      },
 
       "LoginRequest": {
-        "required": ["email", "password"],
         "type": "object",
+        "required": ["email", "password"],
         "properties": {
           "email": {
             "type": "string",
@@ -233,58 +355,226 @@
           "password": {
             "type": "string",
             "description": "User's password",
-            "example": "123456"
+            "example": "qwerty123"
           }
         }
       },
+
       "LoginResponse": {
         "type": "object",
         "properties": {
-          "token": {
+          "status": {
             "type": "string",
-            "description": "Session's access token (needed for all requests)",
-            "example": "OiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+            "description": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "200"
           },
           "data": {
             "type": "object",
             "properties": {
-              "email": {
+              "token": {
                 "type": "string",
-                "description": "User's email",
-                "format": "email",
-                "example": ""
+                "description": "User's token"
               },
-              "id": {
-                "type": "string",
-                "description": "User's id",
-                "example": "6149a22c1c18fd535c9745c8"
+              "user": {
+                "type": "object",
+                "description": "User's credential",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "User's email",
+                    "format": "email"
+                  }
+                }
               }
             }
           }
         }
       },
-      "CurrentUserRequest": {
+      "LoginErrorResponse": {
         "type": "object",
         "properties": {
-          "token": {
+          "status": {
             "type": "string",
-            "description": "Session's access token (needed for all requests)",
-            "example": "iOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWyuHVl913NARFUEqVlKaSJR"
+            "description": "error"
+          },
+          "code": {
+            "type": "string",
+            "description": "401"
+          },
+          "message": {
+            "type": "string",
+            "description": "Email or password is wrong"
+          }
+        }
+      },
+      "LoginErrorVerifiedResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "error"
+          },
+          "code": {
+            "type": "string",
+            "description": "409"
+          },
+          "message": {
+            "type": "string",
+            "description": "User has not verify"
+          }
+        }
+      },
+      
+      "CurrentResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "200"
           },
           "data": {
             "type": "object",
+            "description": "User's credential",
             "properties": {
               "email": {
                 "type": "string",
                 "description": "User's email",
-                "format": "email",
-                "example": "1@email.com"
+                "format": "email"
               }
             }
+          }
+        }
+      },
+      
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "error"
+          },
+          "code": {
+            "type": "string",
+            "description": "Error code"
+          },
+          "message": {
+            "type": "string",
+            "description": "Massage error server"
+          }
+        }
+      },
+
+      "NotFoundErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "error"
+          },
+          "code": {
+            "type": "string",
+            "description": "404"
+          },
+          "message": {
+            "type": "string",
+            "description": "Not found"
+          }
+        }
+      },
+
+      "UserVerifyResponse": {
+        "type": "string",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Email verify"
+          }
+        }
+      },
+
+      "ErrorResponseUserVerify": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "error"
+          },
+          "code": {
+            "type": "string",
+            "description": "404"
+          },
+          "message": {
+            "type": "string",
+            "description": "User not found"
+          }
+        }
+      },
+      
+      "RepeatVerifyRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          }
+        }
+      },
+
+      "UserRepeatVerifyResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "200"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "description": "Verification email sent",
+                "example": "Verification email sent"
+              }
+            }
+          }
+        }
+      },
+
+      "ErrorResponseUserRepeatVerify": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "error",
+            "example": "error"
+          },
+          "code": {
+            "type": "string",
+            "description": "409",
+            "example": "409"
+          },
+          "message": {
+            "type": "string",
+            "description": "Verification has already been passed",
+            "example": "Verification has already been passed"
           }
         }
       }
     },
+    
+
     "securitySchemes": {
       "Bearer": {
         "type": "http",
