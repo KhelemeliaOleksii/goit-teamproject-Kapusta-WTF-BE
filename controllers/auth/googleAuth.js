@@ -39,7 +39,8 @@ const googleRedirect = asyncHandler(async (req, res) => {
       client_id: GOOGLE_CLIENT_ID,
       client_secret: GOOGLE_CLIENT_SECRET,
       // redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
-      redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect',
+      // redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect',
+      redirect_uri: 'https://wtf-kapusta.netlify.app/home',
       grant_type: 'authorization_code',
       code
     }
@@ -82,9 +83,9 @@ const googleRedirect = asyncHandler(async (req, res) => {
         token,
         email
       })
-      .redirect(
-        'https://wtf-kapusta.netlify.app/home'
-      )
+      // .redirect(
+      //   'https://wtf-kapusta.netlify.app/home'
+      // )
   }
 
   const { _id } = user
@@ -98,9 +99,9 @@ const googleRedirect = asyncHandler(async (req, res) => {
       token,
       email
     })
-    .redirect(
-      'https://wtf-kapusta.netlify.app/home'
-    )
+    // .redirect(
+    //   'https://wtf-kapusta.netlify.app/home'
+    // )
 })
 
 module.exports = { googleAuth, googleRedirect }
