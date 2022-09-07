@@ -19,11 +19,6 @@ const controller = asyncHandler(async (req, res) => {
   const year = currentDate.getFullYear()
   const prevResult = await reportServises.shortPerMonthStatistics(month, year, userId)
 
-  if (!prevResult) {
-    res.status(404)
-    throw new Error('error message')
-  }
-
   const result = [
     {
       _id: 'expenses',

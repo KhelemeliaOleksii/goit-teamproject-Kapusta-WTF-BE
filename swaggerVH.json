@@ -1,0 +1,301 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Swagger test",
+    "description": "Showing off swagger-ui-express",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "servers": [
+    {
+      "url": "https://kapusta-wtf.herokuapp.com/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Category",
+      "description": "Categories endpoint"
+    },
+    {
+      "name": "Report",
+      "description": "Report endpoints"
+    }
+  ],
+  "paths": {
+    "/api/v1/categories": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "get all categories",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategories"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/report/short": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get expenses or income transactions for the last six months of the current year",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "transactionType",
+            "description": "transaction type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "user",
+            "name": "_id: userId",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetShortStatistics"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/report/short-per-month": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get expenses or income transactions for the selected month and year",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "description": "date",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "user",
+            "name": "_id: userId",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPerMonthStatistics"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/report/category-per-month": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get expenses or income transactions by category in the selected month and year",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "description": "date",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "transactionType",
+            "description": "transaction type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "user",
+            "name": "_id: userId",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategoryPerMonthStatistics"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/report/by-name-per-month": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get statistics on the name of the transactions in the selected category for the selected month and year",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "description": "date",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "description": "category id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "user",
+            "name": "_id: userId",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetByNamePerMonth"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/report/all-in-day": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "get  all transactions per day",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "description": "date",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "user",
+            "name": "_id: userId",
+            "description": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllInDay"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GetCategories": {},
+      "GetShortStatistics": {},
+      "GetPerMonthStatistics": {},
+      "GetCategoryPerMonthStatistics": {},
+      "GetByNamePerMonth": {},
+      "GetAllInDay": {}
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
