@@ -11,8 +11,8 @@ const { GOOGLE_CLIENT_ID, SECRET_KEY, GOOGLE_CLIENT_SECRET } =
 const googleAuth = asyncHandler(async (_, res) => {
   const stringifiedParams = queryString.stringify({
     client_id: GOOGLE_CLIENT_ID,
-    // redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
-    redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect',
+    redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
+    // redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect',
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/userinfo.profile'
@@ -38,8 +38,8 @@ const googleRedirect = asyncHandler(async (req, res) => {
     data: {
       client_id: GOOGLE_CLIENT_ID,
       client_secret: GOOGLE_CLIENT_SECRET,
-      // redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
-      redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect',
+      redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
+      // redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect',
       // redirect_uri: 'https://wtf-kapusta.netlify.app/home',
       grant_type: 'authorization_code',
       code
@@ -76,28 +76,30 @@ const googleRedirect = asyncHandler(async (req, res) => {
       verify: true,
       verificationToken: ''
     })
-    await userModel.findOne({ token })
-    res
-      .status(201)
-      .json({
-        token,
-        email,
-        redirect: 'https://wtf-kapusta.netlify.app'
-      })
+    return res.redirect(`https://wtf-kapusta.netlify.app/login?token=${token}`)
+    // await userModel.findOne({ token })
+    // res
+    //   .status(201)
+    //   .json({
+    //     token,
+    //     email,
+    //     redirect: 'https://wtf-kapusta.netlify.app'
+    //   })
   }
 
   const { _id } = user
   const payload = { _id }
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' })
   await userModel.findByIdAndUpdate(_id, { token })
-  await userModel.findOne({ token })
-  res
-    .status(200)
-    .json({
-      token,
-      email,
-      redirect: 'https://wtf-kapusta.netlify.app'
-    })
+  return res.redirect(`https://wtf-kapusta.netlify.app/login?token=${token}`)
+  // await userModel.findOne({ token })
+  // res
+  //   .status(200)
+  //   .json({
+  //     token,
+  //     email,
+  //     redirect: 'https://wtf-kapusta.netlify.app'
+  //   })
 })
 
 module.exports = { googleAuth, googleRedirect }

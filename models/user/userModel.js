@@ -5,17 +5,11 @@ const userSchema = new Schema(
   {
     username: {
       type: String
-      // default: "Guest",
-      // required: [true, "Username is required"],
     },
     email: {
       type: String,
       required: [true, 'Email is required'],
       unique: true,
-      validate (value) {
-        const re = /\S+@\S+\.\S+/g
-        return re.test(String(value).toLowerCase())
-      }
     },
     password: {
       type: String,
@@ -24,7 +18,6 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      // default: null,
       default: function () {
         return gravatar.url(this.email, { s: '250' }, true)
       }

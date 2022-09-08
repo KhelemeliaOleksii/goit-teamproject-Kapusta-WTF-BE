@@ -1,11 +1,11 @@
 const Joi = require('joi')
 
-const emailRegexp = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
+const emailRegexp = /[a-z0-9._-]+@[a-z]+\.[a-z]{2,3}/
+const passwordRegexp = /[0-9a-zA-Z,.!@#$%^&*]{10,20}/
 
 const signupSchema = Joi.object({
-  // username: Joi.string().required(),
   email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(6).required()
+  password: Joi.string().pattern(passwordRegexp).required()
 })
 
 const emailSchema = Joi.object({

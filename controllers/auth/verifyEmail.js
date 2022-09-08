@@ -7,7 +7,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
   const user = await userModel.findOne({ verificationToken })
   if (!user) {
     res.status(400)
-    throw new Error('User authorizated allready')
+    throw new Error('Bad request')
   }
   await userModel.findByIdAndUpdate(user._id, {
     verificationToken: '',
