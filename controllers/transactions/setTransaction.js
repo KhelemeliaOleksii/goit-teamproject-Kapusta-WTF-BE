@@ -42,7 +42,9 @@ const income = asyncHandler(async (req, res) => {
     message: 'Success',
     code: 201,
     data: {
-      transaction: req.body
+      transaction: req.body,
+      userId,
+      type: typeof userId,
     }
   })
 })
