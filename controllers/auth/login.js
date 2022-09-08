@@ -37,6 +37,7 @@ const login = asyncHandler(async (req, res) => {
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' })
   await userModel.findByIdAndUpdate(user._id, { token })
   res.json({
+    username: user.username,
     token,
     email
   })
