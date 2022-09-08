@@ -14,7 +14,9 @@ const income = asyncHandler(async (req, res) => {
     throw new Error('Not authorized')
   }
 
-  const userId = _id.toString()
+  // const userId = _id.toString()
+  const userId = _id
+
 
   const { error } = transactionValidation.validateTransaction(req.body)
   if (error) {
