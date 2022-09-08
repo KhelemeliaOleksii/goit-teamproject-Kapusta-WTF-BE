@@ -25,7 +25,8 @@ const income = asyncHandler(async (req, res) => {
   }
   const transaction = { ...req.body, userId }
   const { transactionType, amount } = req.body
-
+  let test1 = 0;
+  let test2 = 0;
   try {
     const currentBalance = await balanceService.getBalance(userId)
     const candidateBalance = transactionType === 'expenses' ? currentBalance - amount : currentBalance + amount
@@ -35,6 +36,8 @@ const income = asyncHandler(async (req, res) => {
     }
     await transactionsService.createTransaction(transaction)
     await balanceService.updateBalance(userId, candidateBalance)
+    test1 = currentBalance
+    test2 = candidateBalance
   } catch (error) {
     res.status(400)
     throw new Error(error.message)
@@ -45,8 +48,8 @@ const income = asyncHandler(async (req, res) => {
     code: 201,
     data: {
       transaction: req.body,
-      userId,
-      type: typeof userId,
+      test1,
+      test2
     }
   })
 })
