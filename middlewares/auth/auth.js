@@ -16,14 +16,19 @@ const auth = asyncHandler(async (req, res, next) => {
     res.status(401)
     throw new Error('Not authorized')
   }
-  const { _id } = jwt.verify(token, SECRET_KEY)
-  const user = await userModel.findById(_id)
-  if (!user.token) {
-    res.status(401)
-    throw new Error('Not authorized')
+  try {
+    const { _id } = jwt.verify(token, SECRET_KEY)
+    const user = await userModel.findById(_id)
+    if (!user.token) {
+      res.status(401)
+      throw new Error('Not authorized')
     }
-  req.user = user
-  next()
+    req.user = user
+    next()
+  } catch (error) {
+      res.status(401)
+      throw new Error('Not authorized')
+  }
 })
 
 module.exports = auth
