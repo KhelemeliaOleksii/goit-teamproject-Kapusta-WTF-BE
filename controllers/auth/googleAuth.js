@@ -11,8 +11,8 @@ const { GOOGLE_CLIENT_ID, SECRET_KEY, GOOGLE_CLIENT_SECRET } =
 const googleAuth = asyncHandler(async (_, res) => {
   const stringifiedParams = queryString.stringify({
     client_id: GOOGLE_CLIENT_ID,
-    redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
-    // redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect',
+    // redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
+    redirect_uri: `${BACK_HOST}/api/v1/users/google-redirect`,
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/userinfo.profile'
@@ -38,8 +38,8 @@ const googleRedirect = asyncHandler(async (req, res) => {
     data: {
       client_id: GOOGLE_CLIENT_ID,
       client_secret: GOOGLE_CLIENT_SECRET,
-      redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
-      // redirect_uri: 'https://kapusta-wtf.herokuapp.com/api/v1/users/google-redirect',
+      // redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
+      redirect_uri: `${BACK_HOST}/api/v1/users/google-redirect`,
       // redirect_uri: 'https://wtf-kapusta.netlify.app/home',
       grant_type: 'authorization_code',
       code
@@ -76,7 +76,7 @@ const googleRedirect = asyncHandler(async (req, res) => {
       verify: true,
       verificationToken: ''
     })
-    return res.redirect(`https://wtf-kapusta.netlify.app/login?token=${token}`)
+    return res.redirect(`${process.env.FRONT_HOST}/login?token=${token}`)
     // await userModel.findOne({ token })
     // res
     //   .status(201)
