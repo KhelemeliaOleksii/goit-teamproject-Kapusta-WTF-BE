@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-
+const balanceService = require('../../services/balance')
 const { userModel, userValidation } = require('../../models/user/')
 
 const { SECRET_KEY } = process.env
@@ -36,10 +36,32 @@ const login = asyncHandler(async (req, res) => {
   }
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' })
   await userModel.findByIdAndUpdate(user._id, { token })
+  
+  try {
+    const userBalance = await balanceService.getBalance(user._id)
+    if (!userBalance) {
+      throw new Error();
+    }
+    res.json({
+      username: user.username,
+      token,
+      email,
+      balance: userBalance,
+    })   
+  } catch {
+    res.json({
+      username: user.username,
+      token,
+      email,
+      balance: null,
+    })
+  }
+  
   res.json({
     username: user.username,
     token,
-    email
+    email,
+    balance: userBalance,
   })
 })
 
