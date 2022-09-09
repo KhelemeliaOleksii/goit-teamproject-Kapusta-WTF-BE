@@ -141,10 +141,8 @@
       }
     },
     "/users/logout": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
+      "get": {
+        "tags": ["Auth"],
         "summary": "User logout",
         "parameters": [],
         "security": [
