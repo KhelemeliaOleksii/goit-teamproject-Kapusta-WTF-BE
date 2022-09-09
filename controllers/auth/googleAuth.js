@@ -1,4 +1,3 @@
-require('./config/setEnvVars')
 const asyncHandler = require('express-async-handler')
 const queryString = require('query-string')
 const axios = require('axios')
@@ -14,7 +13,7 @@ const googleAuth = asyncHandler(async (_, res) => {
   const stringifiedParams = queryString.stringify({
     client_id: GOOGLE_CLIENT_ID,
     // redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
-    redirect_uri: `${BACK_HOST}/api/v1/users/google-redirect`,
+    redirect_uri: `${process.env.BACK_HOST}/api/v1/users/google-redirect`,
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/userinfo.profile'
@@ -41,7 +40,7 @@ const googleRedirect = asyncHandler(async (req, res) => {
       client_id: GOOGLE_CLIENT_ID,
       client_secret: GOOGLE_CLIENT_SECRET,
       // redirect_uri: `http://localhost:${PORT}/api/v1/users/google-redirect`,
-      redirect_uri: `${BACK_HOST}/api/v1/users/google-redirect`,
+      redirect_uri: `${process.env.BACK_HOST}/api/v1/users/google-redirect`,
       // redirect_uri: 'https://wtf-kapusta.netlify.app/home',
       grant_type: 'authorization_code',
       code
