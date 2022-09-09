@@ -48,7 +48,9 @@
   "paths": {
     "/users/signup": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User registration",
         "parameters": [],
         "requestBody": {
@@ -88,7 +90,9 @@
     },
     "/users/login": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User authentication",
         "parameters": [],
         "requestBody": {
@@ -138,10 +142,16 @@
     },
     "/users/logout": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User logout",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {},
         "responses": {
           "204": {
@@ -165,10 +175,16 @@
     },
     "/users/current": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User current. Check the token in the request header!",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "success",
@@ -195,7 +211,9 @@
     },
     "/users/verify/{verificationToken}": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User email verify",
         "parameters": [
           {
@@ -232,7 +250,9 @@
     },
     "/users/verify": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User email repeat verify",
         "parameters": [],
         "requestBody": {
@@ -280,9 +300,11 @@
         }
       }
     },
-     "/users/google": {
+    "/users/google": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Google authentication.",
         "parameters": [],
         "requestBody": {},
@@ -764,7 +786,10 @@
     "schemas": {
       "RegisterRequest": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -821,7 +846,10 @@
       },
       "LoginRequest": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -901,7 +929,7 @@
             "description": "User has not verify"
           }
         }
-      },      
+      },
       "CurrentResponse": {
         "type": "object",
         "properties": {
@@ -925,7 +953,7 @@
             }
           }
         }
-      },      
+      },
       "ErrorResponse": {
         "type": "object",
         "properties": {
@@ -985,7 +1013,7 @@
             "description": "User not found"
           }
         }
-      },      
+      },
       "RepeatVerifyRequest": {
         "type": "object",
         "properties": {
@@ -1079,9 +1107,12 @@
           },
           "transactionType": {
             "type": "string",
+            "enum": [
+              "expenses",
+              "income"
+            ],
             "description": "Transaction's type",
-            "example": "expenses",
-            "enum": "expenses income"
+            "example": "expenses"
           },
           "categoryId": {
             "type": "string",
@@ -1151,25 +1182,6 @@
             "type": "string",
             "description": "User's ID"
           }
-        },
-        "example": {
-          "message": "Success",
-          "code": 201,
-          "data": {
-            "transaction": {
-              "date": {
-                "day": "31",
-                "month": "08",
-                "year": "2022"
-              },
-              "description": {
-                "descriptionName": "ковбаса"
-              },
-              "transactionType": "income",
-              "categoryId": "1",
-              "amount": "0"
-            }
-          }
         }
       },
       "TransactionDeleteRequest": {
@@ -1205,13 +1217,6 @@
                 "example": "6316f81290df3bc8e0bb807d"
               }
             }
-          }
-        },
-        "example": {
-          "message": "Transaction deleted",
-          "code": 200,
-          "data": {
-            "id": "631718cd0aad7aecbad090dd"
           }
         }
       },
@@ -1250,13 +1255,6 @@
               }
             }
           }
-        },
-        "example": {
-          "message": "Success",
-          "code": 200,
-          "data": {
-            "balance": "1000"
-          }
         }
       },
       "GetBalanceRequest": {
@@ -1293,13 +1291,6 @@
                 "example": 1000
               }
             }
-          }
-        },
-        "example": {
-          "message": "Success",
-          "code": 201,
-          "data": {
-            "balance": "1000"
           }
         }
       },
