@@ -1,9 +1,11 @@
+require('./config/setEnvVars')
 const asyncHandler = require('express-async-handler')
 const queryString = require('query-string')
 const axios = require('axios')
 const jwt = require('jsonwebtoken')
 const bcryptjs = require('bcryptjs')
 const { userModel } = require('../../models/user/')
+
 
 const { GOOGLE_CLIENT_ID, SECRET_KEY, GOOGLE_CLIENT_SECRET } =
   process.env
