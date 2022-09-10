@@ -80,8 +80,8 @@ const googleRedirect = asyncHandler(async (req, res) => {
   const { _id } = user
   const payload = { _id }
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' })
-  await userModel.findByIdAndUpdate({_id}, { token })
-  return res.redirect(`${process.env.FRONT_HOST}/login?token=${token}`)
+  const result = await userModel.findByIdAndUpdate({_id}, { token })
+  return res.redirect(`${process.env.FRONT_HOST}/login?token=${token}&username=${result.username}`)
 })
 
 module.exports = { googleAuth, googleRedirect }
