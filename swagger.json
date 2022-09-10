@@ -145,11 +145,7 @@
         "tags": ["Auth"],
         "summary": "User logout",
         "parameters": [],
-        "security": [
-          {
-            "Bearer": []
-          }
-        ],
+        "security": [{"Bearer": []}],
         "requestBody": {},
         "responses": {
           "204": {
@@ -796,8 +792,7 @@
           },
           "password": {
             "type": "string",
-            "description": "User's password",
-            "example": "qwerty123"
+            "description": "User's password"
           }
         }
       },
@@ -857,40 +852,40 @@
           "password": {
             "type": "string",
             "description": "User's password",
-            "example": "qwerty123"
+            "example": "qwerty123456"
           }
         }
       },
       "LoginResponse": {
         "type": "object",
         "properties": {
-          "status": {
+          "_id": {
             "type": "string",
-            "description": "success"
+            "description": "User's id",
+            "example": "dgsg545b746nj845"
           },
-          "code": {
+          "username": {
             "type": "string",
-            "description": "200"
+            "description": "User's username",
+            "format": "name",
+            "example": "User"
           },
-          "data": {
-            "type": "object",
-            "properties": {
-              "token": {
-                "type": "string",
-                "description": "User's token"
-              },
-              "user": {
-                "type": "object",
-                "description": "User's credential",
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "description": "User's email",
-                    "format": "email"
-                  }
-                }
-              }
-            }
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "balance": {
+            "type": "integer",
+            "description": "User's balance",
+            "format": "number",
+            "example": 100000
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "format": "jwt",
+            "example": "iOIUz1NiIsInR5cCIpXVCJ9.eyJfNOyDMrtPvKdEr"
           }
         }
       },
@@ -931,24 +926,21 @@
       "CurrentResponse": {
         "type": "object",
         "properties": {
-          "status": {
+          "name": {
             "type": "string",
-            "description": "success"
+            "description": "User's username",
+            "example": "username"
           },
-          "code": {
+          "email": {
             "type": "string",
-            "description": "200"
+            "description": "User's email",
+            "format": "email",
+            "example": "username@example.com"
           },
-          "data": {
-            "type": "object",
-            "description": "User's credential",
-            "properties": {
-              "email": {
-                "type": "string",
-                "description": "User's email",
-                "format": "email"
-              }
-            }
+          "balance": {
+            "type": "number",
+            "description": "User's balance",
+            "example": 100000
           }
         }
       },
@@ -1515,7 +1507,7 @@
   "securitySchemes": {
     "Bearer": {
       "type": "http",
-      "scheme": "bearer",
+       "scheme": "bearer",
       "bearerFormat": "JWT"
     }
   }
