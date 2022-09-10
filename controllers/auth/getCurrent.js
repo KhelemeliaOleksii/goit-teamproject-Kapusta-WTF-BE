@@ -3,7 +3,8 @@ const balanceService = require('../../services/balance')
 const getCurrent = asyncHandler(async (req, res) => {
   const { email, _id, username } = req.user
   if (!_id) {
-    res.status(401)
+    // res.status(401)
+    res.status(408)
     throw new Error('Not authorized getCurrent')
   }
   const userId = _id.toString()

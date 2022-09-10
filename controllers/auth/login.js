@@ -16,18 +16,21 @@ const login = asyncHandler(async (req, res) => {
 
   const user = await userModel.findOne({ email })
   if (!user) {
-    res.status(401)
+    // res.status(401)
+    res.status(405)
     throw new Error('Email or password is wrong')
   }
 
   if (!user.verify) {
-    res.status(401)
+    // res.status(401)
+    res.status(406)
     throw new Error('Email not verify')
   }
 
   const comparePassword = await bcrypt.compare(password, user.password)
   if (!comparePassword) {
-    res.status(401)
+    // res.status(401)
+    res.status(407)
     throw new Error('Email or password is wrong')
   }
 
