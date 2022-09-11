@@ -506,13 +506,6 @@
             "description": "transaction type",
             "required": true,
             "type": "string"
-          },
-          {
-            "in": "user",
-            "name": "_id: userId",
-            "description": "userId",
-            "required": true,
-            "type": "string"
           }
         ],
         "responses": {
@@ -551,13 +544,6 @@
             "in": "query",
             "name": "date",
             "description": "date",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "user",
-            "name": "_id: userId",
-            "description": "userId",
             "required": true,
             "type": "string"
           }
@@ -607,13 +593,6 @@
             "description": "transaction type",
             "required": true,
             "type": "string"
-          },
-          {
-            "in": "user",
-            "name": "_id: userId",
-            "description": "userId",
-            "required": true,
-            "type": "string"
           }
         ],
         "responses": {
@@ -661,13 +640,6 @@
             "description": "category id",
             "required": true,
             "type": "string"
-          },
-          {
-            "in": "user",
-            "name": "_id: userId",
-            "description": "userId",
-            "required": true,
-            "type": "string"
           }
         ],
         "responses": {
@@ -706,13 +678,6 @@
             "in": "query",
             "name": "date",
             "description": "date",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "user",
-            "name": "_id: userId",
-            "description": "userId",
             "required": true,
             "type": "string"
           }
