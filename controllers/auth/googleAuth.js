@@ -5,7 +5,8 @@ const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const { userModel } = require("../../models/user/");
 
-const { GOOGLE_CLIENT_ID, SECRET_KEY, GOOGLE_CLIENT_SECRET } = process.env;
+
+const { GOOGLE_CLIENT_ID, SECRET_KEY, GOOGLE_CLIENT_SECRET } = process.env
 
 const googleAuth = asyncHandler(async (_, res) => {
   const stringifiedParams = queryString.stringify({
@@ -64,27 +65,30 @@ const googleRedirect = asyncHandler(async (req, res) => {
       verificationToken: id,
     });
     const payload = {
-      id: newUser._id,
-    };
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
+      id: newUser._id
+    }
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' })
+    const userToken = await userModel.findByIdAndUpdate(newUser.id, token)
     await userModel.findByIdAndUpdate(
       { _id: newUser._id },
       {
         token,
         verify: true,
-        verificationToken: "",
+        verificationToken: ''
       }
-    );
-    return res.redirect(`${process.env.FRONT_HOST}/login?token=${token}`);
+    )
+    return res.redirect(
+      `${process.env.FRONT_HOST}/login?token=${userToken.token}`
+    )
   }
 
-  const { _id } = user;
-  const payload = { id: _id };
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
-  const result = await userModel.findByIdAndUpdate({ _id }, { token });
+  const { _id } = user
+  const payload = { id: _id }
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' })
+  const result = await userModel.findByIdAndUpdate({ _id }, { token })
   return res.redirect(
-    `${process.env.FRONT_HOST}/login?token=${token}&username=${result.username}`
-  );
-});
+    `${process.env.FRONT_HOST}/login?token=${result.token}&username=${result.username}`
+  )
+})
 
 module.exports = { googleAuth, googleRedirect };
