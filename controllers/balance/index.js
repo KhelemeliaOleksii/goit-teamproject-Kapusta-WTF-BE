@@ -1,8 +1,8 @@
-const setBalance = require('./setBalance')
+const addBalance = require('./addBalance')
 const getBalance = require('./getBalance')
 
 const balanceController = {
-  setBalance,
+  addBalance,
   getBalance
 }
 

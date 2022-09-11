@@ -1,8 +1,8 @@
-const setTransaction = require('./setTransaction')
+const addTransaction = require('./addTransaction')
 const deleteTransaction = require('./deleteTransaction')
 
 const transactionsController = {
-  setTransaction,
+  addTransaction,
   deleteTransaction
 }
 

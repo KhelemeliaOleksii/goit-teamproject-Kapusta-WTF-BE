@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const categoriesServises = require('../../services/categories')
 
-const controller = asyncHandler(async (req, res) => {
+const getCategories = asyncHandler(async (req, res) => {
   const result = await categoriesServises()
 
   res.status(200)
@@ -14,4 +14,4 @@ const controller = asyncHandler(async (req, res) => {
     })
 })
 
-module.exports = controller
+module.exports = getCategories

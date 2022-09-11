@@ -6,7 +6,7 @@ const transactionsService = require('../../services/transactions')
 const balanceService = require('../../services/balance')
 const balance = require('../../models/balance')
 
-const income = asyncHandler(async (req, res) => {
+const addTransaction = asyncHandler(async (req, res) => {
   const { _id } = req.user
 
   if (!_id) {
@@ -16,7 +16,6 @@ const income = asyncHandler(async (req, res) => {
 
   // const userId = _id.toString()
   const userId = _id
-
 
   const { error } = transactionValidation.validateTransaction(req.body)
   if (error) {
@@ -43,9 +42,9 @@ const income = asyncHandler(async (req, res) => {
     message: 'Success',
     code: 201,
     data: {
-      transaction: req.body,
+      transaction: req.body
     }
   })
 })
 
-module.exports = income
+module.exports = addTransaction
