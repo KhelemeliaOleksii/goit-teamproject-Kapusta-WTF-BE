@@ -8,8 +8,7 @@ const { SECRET_KEY } = process.env
 const auth = asyncHandler(async (req, res, next) => {
   const { authorization = '' } = req.headers
   if (!authorization) {
-    // res.status(401)
-    res.status(402)
+    res.status(401)
     throw new Error('Not authorized')
   }
   const [bearer, token] = authorization.split(' ')
