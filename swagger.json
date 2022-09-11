@@ -1287,10 +1287,13 @@
       "GetCategories": {
         "type": "object",
         "properties": {
-          "token": {
+          "message": {
             "type": "string",
-            "description": "Session's access token (needed for all requests)",
-            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+            "description": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "200"
           },
           "data": {
             "type": "array",
@@ -1327,10 +1330,13 @@
       "GetShortStatistics": {
         "type": "object",
         "properties": {
-          "token": {
+          "message": {
             "type": "string",
-            "description": "Session's access token (needed for all requests)",
-            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+            "description": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "200"
           },
           "data": {
             "type": "array",
@@ -1357,10 +1363,13 @@
       "GetPerMonthStatistics": {
         "type": "object",
         "properties": {
-          "token": {
+          "message": {
             "type": "string",
-            "description": "Session's access token (needed for all requests)",
-            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+            "description": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "200"
           },
           "data": {
             "type": "array",
@@ -1387,10 +1396,13 @@
       "GetCategoryPerMonthStatistics": {
         "type": "object",
         "properties": {
-          "token": {
+          "message": {
             "type": "string",
-            "description": "Session's access token (needed for all requests)",
-            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+            "description": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "200"
           },
           "data": {
             "type": "array",
@@ -1417,10 +1429,13 @@
       "GetByNamePerMonth": {
         "type": "object",
         "properties": {
-          "token": {
+          "message": {
             "type": "string",
-            "description": "Session's access token (needed for all requests)",
-            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+            "description": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "200"
           },
           "data": {
             "type": "array",
@@ -1447,10 +1462,13 @@
       "GetAllInDay": {
         "type": "object",
         "properties": {
-          "token": {
+          "message": {
             "type": "string",
-            "description": "Session's access token (needed for all requests)",
-            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+            "description": "success"
+          },
+          "code": {
+            "type": "string",
+            "description": "200"
           },
           "data": {
             "type": "array",
