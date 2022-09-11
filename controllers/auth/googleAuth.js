@@ -63,28 +63,27 @@ const googleRedirect = asyncHandler(async (req, res) => {
       avatar: picture,
       verificationToken: id,
     });
-    const { _id } = newUser;
-    const payload = { _id };
+    const payload = {
+      id: newUser._id,
+    };
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
-    await userModel.findByIdAndUpdate(_id, {
-      token,
-      verify: true,
-      verificationToken: "",
-    });
-    const updateUser = await userModel.findOne({ token });
-    return res.redirect(
-      `${process.env.FRONT_HOST}/login?token=${updateUser.token}`
+    await userModel.findByIdAndUpdate(
+      { _id: newUser._id },
+      {
+        token,
+        verify: true,
+        verificationToken: "",
+      }
     );
+    return res.redirect(`${process.env.FRONT_HOST}/login?token=${token}`);
   }
 
   const { _id } = user;
-  const payload = { _id };
+  const payload = { id: _id };
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });
-  // const result = await userModel.findByIdAndUpdate({ _id }, { token });
-  await userModel.findByIdAndUpdate(_id, { token });
-  const updateUser = await userModel.findOne({ token });
+  const result = await userModel.findByIdAndUpdate({ _id }, { token });
   return res.redirect(
-    `${process.env.FRONT_HOST}/login?token=${updateUser.token}`
+    `${process.env.FRONT_HOST}/login?token=${token}&username=${result.username}`
   );
 });
 
