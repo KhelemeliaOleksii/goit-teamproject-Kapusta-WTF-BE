@@ -12,7 +12,6 @@ const transactionSchema = Joi.object({
   transactionType: Joi.string().required().valid('income', 'expenses'),
   categoryId: Joi.string().required(),
   amount: Joi.number().required()
-  // userId: Joi.string().required()
 })
 
 const validateTransaction = (transaction) =>

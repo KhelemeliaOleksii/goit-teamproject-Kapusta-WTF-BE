@@ -9,7 +9,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Bad request')
   }
-  await userModel.findByIdAndUpdate({_id: user._id}, {
+  await userModel.findByIdAndUpdate({ _id: user._id }, {
     verificationToken: '',
     verify: true
   })

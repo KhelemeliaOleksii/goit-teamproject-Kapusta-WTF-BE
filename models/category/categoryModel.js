@@ -11,7 +11,6 @@ const categorySchema = new Schema(
     imageUrl: {
       type: String,
       required: true
-      // default: "../../public/avatars/defaultAvatar.jpg",
     },
     categoryType: {
       type: String,

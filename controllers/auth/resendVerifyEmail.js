@@ -19,10 +19,10 @@ const resendVerifyEmail = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Verification has already been passed')
   }
- const mail = {
+  const mail = {
     to: email,
     subject: 'Підтвердження реєстрації на сайті',
-    html: `Вас вітає команда WTF<br>Для підтвердження реєстрації перейдіть за посиланням<br><a target="_blank" href="https://kapusta-wtf.herokuapp.com/api/v1/users/verify/${verificationToken}">Підтвердження реєстрації</a>`
+    html: `Вас вітає команда WTF<br>Для підтвердження реєстрації перейдіть за посиланням<br><a target="_blank" href="https://kapusta-wtf.herokuapp.com/api/v1/users/verify/${user.verificationToken}">Підтвердження реєстрації</a>`
   }
   await sendEmail(mail)
   res.json({
