@@ -9,8 +9,12 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "servers": [
     {
       "url": "https://kapusta-wtf.herokuapp.com/api/v1"
@@ -44,7 +48,9 @@
   "paths": {
     "/users/signup": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User registration",
         "parameters": [],
         "requestBody": {
@@ -84,7 +90,9 @@
     },
     "/users/login": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User authentication",
         "parameters": [],
         "requestBody": {
@@ -134,10 +142,16 @@
     },
     "/users/logout": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User logout",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {},
         "responses": {
           "204": {
@@ -161,7 +175,9 @@
     },
     "/users/current": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User current. Check the token in the request header!",
         "parameters": [],
         "security": [
@@ -195,7 +211,9 @@
     },
     "/users/verify/{verificationToken}": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User email verify",
         "parameters": [
           {
@@ -232,7 +250,9 @@
     },
     "/users/verify": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User email repeat verify",
         "parameters": [],
         "requestBody": {
@@ -282,7 +302,9 @@
     },
     "/users/google": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Google authentication.",
         "parameters": [],
         "requestBody": {},
@@ -300,7 +322,9 @@
     },
     "/transactions": {
       "post": {
-        "tags": ["Transactions"],
+        "tags": [
+          "Transactions"
+        ],
         "summary": "Transaction creation",
         "parameters": [],
         "security": [
@@ -345,7 +369,9 @@
         }
       },
       "delete": {
-        "tags": ["Transactions"],
+        "tags": [
+          "Transactions"
+        ],
         "summary": "Transaction deletion",
         "parameters": [],
         "security": [
@@ -388,7 +414,9 @@
     },
     "/balance": {
       "post": {
-        "tags": ["Balance"],
+        "tags": [
+          "Balance"
+        ],
         "summary": "Balance creation",
         "parameters": [],
         "security": [
@@ -429,32 +457,31 @@
         }
       },
       "get": {
-        "tags": ["Balance"],
+        "tags": [
+          "Balance"
+        ],
         "summary": "Get balance",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "User ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "User's ID"
+          }
+        ],
         "security": [
           {
             "Bearer": []
           }
         ],
-        "requestBody": {
-          "description": "Balance object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetBalanceRequest"
-              }
-            }
-          }
-        },
         "responses": {
           "201": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetBalanceResponse"
+                  "$ref": "#/components/schemas/GetBalance"
                 }
               }
             }
@@ -468,7 +495,9 @@
     },
     "/categories": {
       "get": {
-        "tags": ["Category"],
+        "tags": [
+          "Category"
+        ],
         "summary": "get all categories",
         "security": [
           {
@@ -492,7 +521,9 @@
     },
     "/report/short": {
       "get": {
-        "tags": ["Report"],
+        "tags": [
+          "Report"
+        ],
         "summary": "get expenses or income transactions for the last six months of the current year",
         "security": [
           {
@@ -532,7 +563,9 @@
     },
     "/report/short-per-month": {
       "get": {
-        "tags": ["Report"],
+        "tags": [
+          "Report"
+        ],
         "summary": "get expenses or income transactions for the selected month and year",
         "security": [
           {
@@ -572,7 +605,9 @@
     },
     "/report/category-per-month": {
       "get": {
-        "tags": ["Report"],
+        "tags": [
+          "Report"
+        ],
         "summary": "get expenses or income transactions by category in the selected month and year",
         "security": [
           {
@@ -619,7 +654,9 @@
     },
     "/report/by-name-per-month": {
       "get": {
-        "tags": ["Report"],
+        "tags": [
+          "Report"
+        ],
         "summary": "get statistics on the name of the transactions in the selected category for the selected month and year",
         "security": [
           {
@@ -666,7 +703,9 @@
     },
     "/report/all-in-day": {
       "get": {
-        "tags": ["Report"],
+        "tags": [
+          "Report"
+        ],
         "summary": "get  all transactions per day",
         "security": [
           {
@@ -709,7 +748,10 @@
     "schemas": {
       "RegisterRequest": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -765,7 +807,10 @@
       },
       "LoginRequest": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -1020,7 +1065,10 @@
           },
           "transactionType": {
             "type": "string",
-            "enum": ["expenses", "income"],
+            "enum": [
+              "expenses",
+              "income"
+            ],
             "description": "Transaction's type",
             "example": "expenses"
           },
@@ -1096,7 +1144,9 @@
       },
       "TransactionDeleteRequest": {
         "type": "object",
-        "required": ["transactionId"],
+        "required": [
+          "transactionId"
+        ],
         "properties": {
           "transactionId": {
             "type": "string",
@@ -1130,7 +1180,9 @@
       },
       "BalanceCreateRequest": {
         "type": "object",
-        "required": ["currentBalance"],
+        "required": [
+          "currentBalance"
+        ],
         "properties": {
           "currentBalance": {
             "type": "integer",
@@ -1163,18 +1215,7 @@
           }
         }
       },
-      "GetBalanceRequest": {
-        "type": "object",
-        "required": ["_id"],
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "User's ID",
-            "example": "6317422018d90abea5e080aa"
-          }
-        }
-      },
-      "GetBalanceResponse": {
+      "GetBalance": {
         "type": "object",
         "properties": {
           "message": {
